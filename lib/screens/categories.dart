@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_onboarding_app/screens/homebottombar.dart';
+//import 'package:grocery_onboarding_app/screens/homebottombar.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -8,7 +8,16 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
+        elevation: 0,
         automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -17,11 +26,10 @@ class CategoriesPage extends StatelessWidget {
                   end: Alignment.bottomRight,
                   colors: <Color>[Colors.red, Colors.green])),
         ),
+        centerTitle: true,
         title: const Text(
           'Categories',
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
-          textAlign: TextAlign.left,
+          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
         ),
       ),
       body: GridView.count(
@@ -50,7 +58,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/19.png",
@@ -95,7 +103,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/20.png",
@@ -140,7 +148,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/21.png",
@@ -185,7 +193,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/22.png",
@@ -230,7 +238,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/23.png",
@@ -275,7 +283,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/24.jpg",
@@ -320,7 +328,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/25.jpg",
@@ -365,7 +373,7 @@ class CategoriesPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    //Navigator.pushNamed(context, "itemPage");
+                    Navigator.pushNamed(context, '/third');
                   },
                   child: Image.asset(
                     "assets/images/26.png",
@@ -402,7 +410,7 @@ class CategoriesPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const HomeBottomBar(),
+      //bottomNavigationBar: const HomeBottomBar(),
     );
   }
 }

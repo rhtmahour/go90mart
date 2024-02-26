@@ -16,10 +16,10 @@ class ItemPage extends StatelessWidget {
                   end: Alignment.bottomRight,
                   colors: <Color>[Colors.red, Colors.green])),
         ),
+        centerTitle: true,
         title: const Text(
           'Products',
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
           textAlign: TextAlign.left,
         ),
       ),
@@ -74,7 +74,7 @@ class ItemPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Image.asset("assets/images/$i.png",
+                      child: Image.asset("assets/images/$i.jpeg",
                           fit: BoxFit.cover),
                     ),
                   //const Spacer(),

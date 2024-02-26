@@ -35,7 +35,8 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
           ),
           Text(
             FirebaseAuth.instance.currentUser!.email!,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
           ),
         ],
       ),

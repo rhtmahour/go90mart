@@ -26,67 +26,87 @@ class Category extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/fruits2.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/fruits2.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/vegetables.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/vegetables.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/meat1.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/meat1.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/dairy_products.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/dairy_products.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -100,33 +120,33 @@ class Category extends StatelessWidget {
             Text(
               'Fruits',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
             Padding(padding: EdgeInsets.only(left: 46)),
             Text(
               'Vegetables',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
             Padding(padding: EdgeInsets.only(right: 42)),
             Text(
               'Meat',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
             Padding(padding: EdgeInsets.only(right: 60)),
             Text(
               'Dairy',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -134,67 +154,87 @@ class Category extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/cold_drink1.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/cold_drink1.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/bakery.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/bakery.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/coffee.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/coffee.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 11),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(21),
-                    bottomRight: Radius.circular(21)),
-                color: Colors.white,
-                border: Border.all(width: 0.5, color: Colors.black),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/instant-food.png"),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 11),
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      bottomRight: Radius.circular(21)),
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/instant-food.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -208,33 +248,33 @@ class Category extends StatelessWidget {
             Text(
               'Cold Drinks',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
             Padding(padding: EdgeInsets.only(left: 35)),
             Text(
               'Bakery',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
             Padding(padding: EdgeInsets.only(right: 50)),
             Text(
               'Coffee',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
-            Padding(padding: EdgeInsets.only(right: 30)),
+            Padding(padding: EdgeInsets.only(right: 25)),
             Text(
               'Instant Food',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
             ),
           ],
         ),

@@ -1,7 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_onboarding_app/Items/arielmaticdetail.dart';
+import 'package:grocery_onboarding_app/Items/baidyanathgulkanddetail.dart';
+import 'package:grocery_onboarding_app/Items/baygonmaxdetail.dart';
+import 'package:grocery_onboarding_app/Items/biotiqueshampoodetail.dart';
+import 'package:grocery_onboarding_app/Items/bonncakepage.dart';
+import 'package:grocery_onboarding_app/Items/colgatevisible.dart';
+import 'package:grocery_onboarding_app/Items/dairymilkdetail.dart';
+import 'package:grocery_onboarding_app/Items/gluconddetail.dart';
 import 'package:grocery_onboarding_app/Items/item_entrey.dart';
-import 'package:grocery_onboarding_app/Items/item_detail.dart';
+import 'package:grocery_onboarding_app/Items/laysblue.dart';
+import 'package:grocery_onboarding_app/Items/laysdetail.dart';
+import 'package:grocery_onboarding_app/Items/odonildetail.dart';
+import 'package:grocery_onboarding_app/Items/oreocookiedetail.dart';
+import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
+import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
 import 'package:grocery_onboarding_app/screens/Categories.dart';
 import 'package:grocery_onboarding_app/screens/MyAccountPage.dart';
 import 'package:grocery_onboarding_app/screens/auth_page.dart';
@@ -12,7 +25,6 @@ import 'package:grocery_onboarding_app/screens/orderpage.dart';
 import 'package:grocery_onboarding_app/screens/otp.dart';
 import 'package:grocery_onboarding_app/screens/phone.dart';
 import 'package:grocery_onboarding_app/screens/product.dart';
-
 import 'package:grocery_onboarding_app/screens/slider_screen.dart';
 import 'package:grocery_onboarding_app/screens/category.dart';
 import 'package:grocery_onboarding_app/screens/homebottombar.dart';
@@ -34,13 +46,26 @@ class HomeScreen extends StatelessWidget {
         //when navigating to the "CartPage" route, build the fourth screen
         'CartPage': (context) => const CartPage(),
         //when navigating to the "ItemDetailPage" route, build the item_detail
-        'ItemDetail': (context) => const ItemDetailPage(),
+        'laysblue': (context) => const laysbluePage(),
+        'dairymilk': (context) => const dairymilk(),
+        'lays': (context) => const lays(),
+        'pepsi': (context) => const pepsi(),
+        'odonil': (context) => const odonil(),
+        'glucond': (context) => const glucond(),
+        'redlabel': (context) => const redlabel(),
+        'bitotiqueshapoo': (context) => biotiqueshapoo(),
+        'bonncake': (context) => bonncakepage(),
+        'oreocookie': (context) => oreocookiepage(),
+        'arielmatic': (context) => arielmaticpage(),
+        'baidyanathgulkand': (context) => baidyanathgulkandpage(),
+        'baygonmax': (context) => baygonmaxpage(),
+        'colgatevisible': (context) => colgatevisiblepage(),
         //when navigating to the "OrderPage" route, build the orderpage
         'orderPage': (context) => const OrderPage(),
         //When navigating to the "MyAccountPage" route to the LoginPage
         'myaccount': (context) => const MyAccountPage(),
         'phone': (context) => const MyPhone(),
-        'otp': (context) => const MyOtp(),
+        'otp': (context) => MyOtp(),
         //'emaillogin': (context) => const EmailLogin({super.key, required this.onPressed}),
         'authpage': (context) => const AuthPage(),
         //'signuppage':(context) => const SignupPage({super.key, required this.onPressed}),
@@ -69,9 +94,8 @@ class MyDrawerHome extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           "Go90",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
         ),
-        //centerTitle: true,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(

@@ -3,7 +3,7 @@ import 'package:grocery_onboarding_app/screens/home_screen.dart';
 import 'package:pinput/pinput.dart';
 
 class MyOtp extends StatefulWidget {
-  const MyOtp({super.key});
+  const MyOtp({Key? key}) : super(key: key);
 
   @override
   State<MyOtp> createState() => _MyOtpState();
@@ -74,7 +74,7 @@ class _MyOtpState extends State<MyOtp> {
                 height: 10,
               ),
               const Text(
-                "We need to register your phone without getting started!",
+                "We need to register your phone without before getting started!",
                 style: TextStyle(
                   fontSize: 16,
                 ),

@@ -12,7 +12,6 @@ class MyPhone extends StatefulWidget {
 class _MyPhoneState extends State<MyPhone> {
   TextEditingController countryController = TextEditingController();
   var phone = "";
-
   @override
   void initState() {
     // TODO: implement initState
@@ -94,7 +93,7 @@ class _MyPhoneState extends State<MyPhone> {
                         border: InputBorder.none,
                         hintText: "Phone",
                       ),
-                    ))
+                    )),
                   ],
                 ),
               ),
@@ -111,6 +110,8 @@ class _MyPhoneState extends State<MyPhone> {
                             side: const BorderSide(color: Colors.black),
                             borderRadius: BorderRadius.circular(30))),
                     onPressed: () async {
+                      /*print(
+                          "the phone number is ----> : $phone"); */ // Added print statement
                       await FirebaseAuth.instance.verifyPhoneNumber(
                         phoneNumber: '${countryController.text + phone}',
                         verificationCompleted:
@@ -129,6 +130,9 @@ class _MyPhoneState extends State<MyPhone> {
                       "Send the code",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Row(
                 children: [

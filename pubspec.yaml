@@ -100,12 +100,16 @@ flutter:
       - assets/images/coffee.png
       - assets/images/instant-food.png
       - assets/images/cart1.png
-      - assets/images/capsicum.png
-      - assets/images/cflower.png
-      - assets/images/onion.png
-      - assets/images/potato.png
-      - assets/images/tomato.png
-      - assets/images/ginger.png
+      - assets/images/dairymilk.png
+      - assets/images/dairymilk1.webp
+      - assets/images/lays1.webp
+      - assets/images/pepsi.webp
+      - assets/images/odonil.webp
+      - assets/images/odonil.jpg
+      - assets/images/glucond.webp
+      - assets/images/glucond2.jpg
+      - assets/images/Redlabel.png
+      - assets/images/redlabel.jpeg
       - assets/images/tata.png
       - assets/images/dettol.png
       - assets/images/coca_cola.png
@@ -122,22 +126,22 @@ flutter:
       - assets/images/26.png
       - assets/images/store.png
       - assets/images/banana.png
-      - assets/images/1.png
-      - assets/images/2.png
-      - assets/images/3.png
-      - assets/images/4.png
-      - assets/images/5.png
-      - assets/images/6.png
-      - assets/images/7.png
-      - assets/images/8.png
-      - assets/images/11.png
-      - assets/images/12.png
-      - assets/images/13.png
-      - assets/images/14.png
-      - assets/images/15.png
-      - assets/images/16.png
-      - assets/images/17.png
-      - assets/images/18.png
+      - assets/images/1.jpeg
+      - assets/images/2.jpeg
+      - assets/images/3.jpeg
+      - assets/images/4.jpeg
+      - assets/images/5.jpeg
+      - assets/images/6.jpeg
+      - assets/images/7.jpeg
+      - assets/images/8.jpeg
+      - assets/images/11.jpeg
+      - assets/images/12.jpeg
+      - assets/images/13.jpeg
+      - assets/images/14.jpeg
+      - assets/images/15.jpeg
+      - assets/images/16.jpeg
+      - assets/images/17.jpeg
+      - assets/images/18.jpeg
       - assets/images/user_profile.png
       - assets/images/img1.png
       - assets/images/slider1.png
