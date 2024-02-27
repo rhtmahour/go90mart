@@ -7,7 +7,7 @@ class ItemBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 70,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -20,7 +20,7 @@ class ItemBottomBar extends StatelessWidget {
               Navigator.pushNamed(context, "CartPage");
             },
             child: Container(
-              height: 60,
+              height: 50,
               width: 80,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -37,17 +37,17 @@ class ItemBottomBar extends StatelessWidget {
           GestureDetector(
             onTap: () {},
             child: Container(
-              height: 60,
-              width: 220,
+              height: 50,
+              width: 200,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.green,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Text(
-                "Buy Now",
+                "Add to Cart",
                 style: TextStyle(
-                  fontSize: 23,
+                  fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,

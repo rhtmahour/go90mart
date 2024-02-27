@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:grocery_onboarding_app/Items/arielmaticdetail.dart';
 import 'package:grocery_onboarding_app/Items/baidyanathgulkanddetail.dart';
 import 'package:grocery_onboarding_app/Items/baygonmaxdetail.dart';
@@ -83,14 +84,31 @@ class MyDrawerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            child: badges.Badge(
+              badgeContent: Text(
+                '0',
+                style: TextStyle(color: Colors.white),
+              ),
+              child: Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          )
+        ],
         /*actions: [
           IconButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
             },
             icon: const Icon(Icons.login),
-          )
-        ],*/
+          )*/
         centerTitle: true,
         title: const Text(
           "Go90",

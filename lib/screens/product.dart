@@ -23,7 +23,7 @@ class ProductPage extends StatelessWidget {
             const Padding(padding: EdgeInsets.only(right: 200)),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, 'dairymilk');
+                //Navigator.pushNamed(context, 'dairymilk');
               },
               child: Container(
                 height: 22,
