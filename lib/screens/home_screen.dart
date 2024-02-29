@@ -84,7 +84,7 @@ class MyDrawerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
+        /*actions: [
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
             child: badges.Badge(
@@ -101,7 +101,7 @@ class MyDrawerHome extends StatelessWidget {
           SizedBox(
             width: 20,
           )
-        ],
+        ], */
         /*actions: [
           IconButton(
             onPressed: () async {

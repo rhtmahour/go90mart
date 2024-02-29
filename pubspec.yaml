@@ -154,6 +154,7 @@ flutter:
       - assets/images/slider3.png
       - assets/images/slider4.png
       - assets/images/slider5.webp
+      - assets/images/empty_cart.png
       
       
   #   - family: Schyler
