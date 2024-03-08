@@ -14,8 +14,8 @@ class RoundedButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
             //primary: Color.fromARGB(255, 2, 173, 102),
+            foregroundColor: Color.fromARGB(255, 245, 247, 245),
             backgroundColor: const Color.fromARGB(255, 61, 166, 61),
-            onPrimary: Color.fromARGB(255, 245, 247, 245),
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),

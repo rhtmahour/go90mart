@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_onboarding_app/Items/item_entrey.dart';
+//import 'package:grocery_onboarding_app/Items/item_entrey.dart';
 import 'package:grocery_onboarding_app/screens/cart_provider.dart';
 import 'package:grocery_onboarding_app/screens/home_screen.dart';
 import 'package:grocery_onboarding_app/screens/onboarding_screen.dart';

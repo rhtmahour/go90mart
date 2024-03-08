@@ -98,7 +98,7 @@ class _MyOtpState extends State<MyOtp> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.green.shade600,
+                        backgroundColor: Colors.green.shade600,
                         shape: RoundedRectangleBorder(
                             side: const BorderSide(color: Colors.black),
                             borderRadius: BorderRadius.circular(30))),

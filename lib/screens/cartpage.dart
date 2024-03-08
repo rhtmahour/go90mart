@@ -4,6 +4,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:grocery_onboarding_app/screens/cart_model.dart';
 import 'package:grocery_onboarding_app/screens/cart_provider.dart';
 import 'package:grocery_onboarding_app/screens/db_helper.dart';
+import 'package:grocery_onboarding_app/screens/orderpage.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
@@ -357,6 +358,7 @@ class _CartPageState extends State<CartPage> {
                       title: 'Sub Total',
                       value: r'Rs.' + value.getTotalPrice().toStringAsFixed(2),
                     ),
+                    const Divider(thickness: 1),
                     ReusableWidget(
                       title: 'Discount',
                       value: r'Rs.' + '0',
@@ -364,6 +366,28 @@ class _CartPageState extends State<CartPage> {
                     ReusableWidget(
                       title: 'Total',
                       value: r'Rs.' + value.getTotalPrice().toStringAsFixed(2),
+                    ),
+                    const Divider(thickness: 1),
+                    MaterialButton(
+                      minWidth: 300,
+                      height: 50,
+                      color: Colors.green,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const OrderPage()));
+                      },
+                      shape: RoundedRectangleBorder(
+                          side: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: const Text(
+                        "Check Out",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: Colors.white),
+                      ),
                     )
                   ],
                 ),
