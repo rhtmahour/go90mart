@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
   const MyHeaderDrawer({super.key});
@@ -9,7 +13,26 @@ class MyHeaderDrawer extends StatefulWidget {
 }
 
 class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
+  File? pickedImageFile;
   @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> pickImage() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+
+      setState(() {
+        pickedImageFile = File(pickedImage.path);
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   Widget build(BuildContext context) {
     return Container(
       color: Colors.green,
@@ -19,14 +42,16 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            height: 70,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/images/user_profile.png'),
-              ),
+          GestureDetector(
+            onTap: pickImage,
+            child: CircleAvatar(
+              radius: 35,
+              backgroundImage:
+                  pickedImageFile != null ? FileImage(pickedImageFile!) : null,
+              child: pickedImageFile == null
+                  ? Icon(Icons.camera_alt, size: 40, color: Colors.grey[600])
+                  : null,
+              backgroundColor: Colors.grey[200],
             ),
           ),
           const Text(

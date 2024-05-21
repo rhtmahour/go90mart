@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:badges/badges.dart' as badges;
+import 'package:flutter/services.dart';
 import 'package:grocery_onboarding_app/Items/arielmaticdetail.dart';
 import 'package:grocery_onboarding_app/Items/baidyanathgulkanddetail.dart';
 import 'package:grocery_onboarding_app/Items/baygonmaxdetail.dart';
@@ -21,32 +23,62 @@ import 'package:grocery_onboarding_app/screens/MyAccountPage.dart';
 import 'package:grocery_onboarding_app/screens/auth_page.dart';
 import 'package:grocery_onboarding_app/screens/brands.dart';
 import 'package:grocery_onboarding_app/screens/cartpage.dart';
-import 'package:grocery_onboarding_app/screens/mydrawer.dart';
+import 'package:grocery_onboarding_app/screens/contacts.dart';
+import 'package:grocery_onboarding_app/screens/dashboard.dart';
+import 'package:grocery_onboarding_app/screens/events.dart';
+import 'package:grocery_onboarding_app/screens/notes.dart';
+import 'package:grocery_onboarding_app/screens/notifications.dart';
 import 'package:grocery_onboarding_app/screens/orderpage.dart';
 import 'package:grocery_onboarding_app/screens/otp.dart';
 import 'package:grocery_onboarding_app/screens/phone.dart';
+import 'package:grocery_onboarding_app/screens/privacy_policy.dart';
 import 'package:grocery_onboarding_app/screens/product.dart';
+import 'package:grocery_onboarding_app/screens/send_feedback.dart';
+import 'package:grocery_onboarding_app/screens/settings.dart';
 import 'package:grocery_onboarding_app/screens/slider_screen.dart';
 import 'package:grocery_onboarding_app/screens/category.dart';
 import 'package:grocery_onboarding_app/screens/homebottombar.dart';
+import 'package:image_picker/image_picker.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final user = FirebaseAuth.instance.currentUser;
+  File? pickedImageFile;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> pickImage() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+
+      setState(() {
+        pickedImageFile = File(pickedImage.path);
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/home': (context) => HomeScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/second': (context) => const CategoriesPage(),
-        //when navigating to the "/third" route, build the thirdscreen widget.
         '/third': (context) => const ItemPage(),
-        //when navigating to the "CartPage" route, build the fourth screen
         'CartPage': (context) => const CartPage(),
-        //when navigating to the "ItemDetailPage" route, build the item_detail
         'laysblue': (context) => const laysbluePage(),
         'dairymilk': (context) => const dairymilk(),
         'lays': (context) => const lays(),
@@ -61,15 +93,11 @@ class HomeScreen extends StatelessWidget {
         'baidyanathgulkand': (context) => baidyanathgulkandpage(),
         'baygonmax': (context) => baygonmaxpage(),
         'colgatevisible': (context) => colgatevisiblepage(),
-        //when navigating to the "OrderPage" route, build the orderpage
         'orderPage': (context) => const OrderPage(),
-        //When navigating to the "MyAccountPage" route to the LoginPage
         'myaccount': (context) => const MyAccountPage(),
         'phone': (context) => const MyPhone(),
         'otp': (context) => MyOtp(),
-        //'emaillogin': (context) => const EmailLogin({super.key, required this.onPressed}),
         'authpage': (context) => const AuthPage(),
-        //'signuppage':(context) => const SignupPage({super.key, required this.onPressed}),
       },
       debugShowCheckedModeBanner: false,
       home: MyDrawerHome(),
@@ -77,38 +105,36 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class MyDrawerHome extends StatelessWidget {
+class MyDrawerHome extends StatefulWidget {
   MyDrawerHome({super.key});
+
+  @override
+  _MyDrawerHomeState createState() => _MyDrawerHomeState();
+}
+
+class _MyDrawerHomeState extends State<MyDrawerHome> {
+  File? pickedImageFile;
   final TextEditingController _searchController = TextEditingController();
+
+  Future<void> pickImage() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+
+      setState(() {
+        pickedImageFile = File(pickedImage.path);
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
-        /*actions: [
-          AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            child: badges.Badge(
-              badgeContent: Text(
-                '0',
-                style: TextStyle(color: Colors.white),
-              ),
-              child: Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          )
-        ], */
-        /*actions: [
-          IconButton(
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-            },
-            icon: const Icon(Icons.login),
-          )*/
         centerTitle: true,
         title: const Text(
           "Go90",
@@ -122,50 +148,261 @@ class MyDrawerHome extends StatelessWidget {
                   colors: <Color>[Colors.red, Colors.green])),
         ),
       ),
-      body: Center(child: Builder(builder: (context) {
-        return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Container(
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Search more than 10000+ products..',
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => _searchController.clear(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            SizedBox(
+              height: 250,
+              width: double.maxFinite,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: pickImage,
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundImage: pickedImageFile != null
+                            ? FileImage(pickedImageFile!)
+                            : null,
+                        child: pickedImageFile == null
+                            ? Icon(Icons.camera_alt,
+                                size: 40, color: Colors.grey[600])
+                            : null,
+                        backgroundColor: Colors.grey[200],
                       ),
-                      prefixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {
-                          // Perform the search here
-                        },
+                    ),
+                    const Text(
+                      "User",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    if (user != null && user.email != null)
+                      Text(
+                        user.email!,
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 20),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                  ],
+                ),
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                'Dashboard',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DashboardPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Contacts',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ContactsPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Events',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const EventsPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Notes',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotesPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Settings',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettingsPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Notifications',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificationsPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Privacy Policy',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PrivacyPolicyPage()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text(
+                'Send feedback',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SendFeedbackPage()),
+                );
+              },
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            PrettyFuzzyButton(
+              text: 'Logout',
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacementNamed('/emaillogin');
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: Builder(
+          builder: (context) {
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Container(
+                      height: 40,
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Search more than 10000+ products..',
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () => _searchController.clear(),
+                          ),
+                          prefixIcon: IconButton(
+                            icon: const Icon(Icons.search),
+                            onPressed: () {
+                              // Perform the search here
+                            },
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  const SliderPage(),
+                  const Category(),
+                  const ProductPage(),
+                  const BrandPage(),
+                ],
               ),
-              const SliderPage(),
-              //const SizedBox(height: 70.0),
-              const Category(),
-              //const SizedBox(height: 50.0),
-              const ProductPage(),
-              //const SizedBox(height: 100.0),
-              const BrandPage(),
-            ],
-          ),
-        );
-      })),
+            );
+          },
+        ),
+      ),
       bottomNavigationBar: const HomeBottomBar(),
-      drawer: const MyDrawer(),
+    );
+  }
+}
+
+class PrettyFuzzyButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const PrettyFuzzyButton({required this.text, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      margin: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+        gradient: const LinearGradient(
+          colors: [Colors.red, Colors.green],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(30.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 28.0),
+          child: Center(
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

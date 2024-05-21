@@ -46,7 +46,6 @@ class _MyDrawerState extends State<MyDrawer> {
         child: Container(
           child: Column(
             children: [
-              const MyHeaderDrawer(),
               mydrawerlist(),
               const SizedBox(
                 height: 50,
