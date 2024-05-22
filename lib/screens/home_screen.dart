@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+//import 'package:flutter/widgets.dart';
 import 'package:grocery_onboarding_app/Items/arielmaticdetail.dart';
 import 'package:grocery_onboarding_app/Items/baidyanathgulkanddetail.dart';
 import 'package:grocery_onboarding_app/Items/baygonmaxdetail.dart';
@@ -38,6 +40,7 @@ import 'package:grocery_onboarding_app/screens/settings.dart';
 import 'package:grocery_onboarding_app/screens/slider_screen.dart';
 import 'package:grocery_onboarding_app/screens/category.dart';
 import 'package:grocery_onboarding_app/screens/homebottombar.dart';
+import 'package:grocery_onboarding_app/screens/userprofileeditpage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -153,7 +156,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             SizedBox(
-              height: 250,
+              height: 300,
               width: double.maxFinite,
               child: DrawerHeader(
                 decoration: const BoxDecoration(
@@ -162,6 +165,23 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 200, bottom: 30),
+                      child: IconButton(
+                        icon: Icon(Icons.edit, color: Colors.white),
+                        onPressed: () {
+                          if (user != null && user.email != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    UserProfileEditPage(email: user.email!),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                     GestureDetector(
                       onTap: pickImage,
                       child: CircleAvatar(
@@ -177,7 +197,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                       ),
                     ),
                     const Text(
-                      "User",
+                      "name",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     if (user != null && user.email != null)
@@ -187,13 +207,18 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                             color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 20),
                       ),
+                    const Text(
+                      "phoneNumber",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
                   ],
                 ),
               ),
             ),
             ListTile(
+              leading: Icon(Icons.receipt),
               title: const Text(
-                'Dashboard',
+                'Orders',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               onTap: () {
@@ -206,8 +231,9 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.location_on),
               title: const Text(
-                'Contacts',
+                'Addresses',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               onTap: () {
@@ -219,8 +245,9 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.star_border),
               title: const Text(
-                'Events',
+                'Ratings and Reviews',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               onTap: () {
@@ -232,8 +259,9 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.support_agent),
               title: const Text(
-                'Notes',
+                'Support',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               onTap: () {
@@ -245,6 +273,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.settings),
               title: const Text(
                 'Settings',
                 style: TextStyle(fontWeight: FontWeight.w500),
@@ -258,6 +287,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             ),
             Divider(),
             ListTile(
+              leading: Icon(Icons.notification_add),
               title: const Text(
                 'Notifications',
                 style: TextStyle(fontWeight: FontWeight.w500),
@@ -272,6 +302,11 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             ),
             Divider(),
             ListTile(
+                title: Text(
+              "FAQ's",
+              style: TextStyle(fontWeight: FontWeight.w500),
+            )),
+            ListTile(
               title: const Text(
                 'Privacy Policy',
                 style: TextStyle(fontWeight: FontWeight.w500),
@@ -284,7 +319,6 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                 );
               },
             ),
-            Divider(),
             ListTile(
               title: const Text(
                 'Send feedback',
