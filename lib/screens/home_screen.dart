@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,27 +51,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final user = FirebaseAuth.instance.currentUser;
-  File? pickedImageFile;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Future<void> pickImage() async {
-    try {
-      final pickedImage =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedImage == null) return;
-
-      setState(() {
-        pickedImageFile = File(pickedImage.path);
-      });
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       routes: {
         '/home': (context) => HomeScreen(),
         '/second': (context) => const CategoriesPage(),
-        '/third': (context) => const ItemPage(),
+        '/third': (context) => ItemPage(),
         'CartPage': (context) => const CartPage(),
         'laysblue': (context) => const laysbluePage(),
         'dairymilk': (context) => const dairymilk(),
@@ -118,6 +98,14 @@ class MyDrawerHome extends StatefulWidget {
 class _MyDrawerHomeState extends State<MyDrawerHome> {
   File? pickedImageFile;
   final TextEditingController _searchController = TextEditingController();
+  String userName = 'Admin';
+  String userPhoneNumber = '+919891477225';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserDetails();
+  }
 
   Future<void> pickImage() async {
     try {
@@ -130,6 +118,29 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
       });
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
+    }
+  }
+
+  Future<void> fetchUserDetails() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && user.email != null) {
+      try {
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.email)
+            .get();
+        if (userDoc.exists) {
+          setState(() {
+            userName = userDoc['name'] ?? '';
+            userPhoneNumber = userDoc['phoneNumber'] ?? '';
+          });
+          print('User details fetched: $userName, $userPhoneNumber');
+        } else {
+          print('User document does not exist.');
+        }
+      } catch (e) {
+        print('Error fetching user details: $e');
+      }
     }
   }
 
@@ -156,7 +167,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             SizedBox(
-              height: 300,
+              height: 350,
               width: double.maxFinite,
               child: DrawerHeader(
                 decoration: const BoxDecoration(
@@ -196,8 +207,8 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                         backgroundColor: Colors.grey[200],
                       ),
                     ),
-                    const Text(
-                      "name",
+                    Text(
+                      userName.isNotEmpty ? userName : '$userName',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     if (user != null && user.email != null)
@@ -205,11 +216,13 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                         user.email!,
                         style: const TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
-                            fontSize: 20),
+                            fontSize: 15),
                       ),
-                    const Text(
-                      "phoneNumber",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    Text(
+                      userPhoneNumber.isNotEmpty
+                          ? userPhoneNumber
+                          : '$userPhoneNumber',
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                   ],
                 ),
