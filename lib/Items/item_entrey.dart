@@ -1,7 +1,5 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
-//import 'package:flutter/widgets.dart';
 import 'package:grocery_onboarding_app/screens/cart_model.dart';
 import 'package:grocery_onboarding_app/screens/cart_provider.dart';
 import 'package:grocery_onboarding_app/screens/cartpage.dart';
@@ -9,9 +7,7 @@ import 'package:grocery_onboarding_app/screens/db_helper.dart';
 import 'package:provider/provider.dart';
 
 class ItemPage extends StatefulWidget {
-  const ItemPage({
-    super.key,
-  });
+  const ItemPage({super.key});
 
   @override
   State<ItemPage> createState() => _ItemPageState();
@@ -57,6 +53,8 @@ class _ItemPageState extends State<ItemPage> {
     'assets/images/Redlabel.png',
     'assets/images/odonil.webp',
   ];
+
+  List<int> quantities = List<int>.generate(10, (int index) => 0);
 
   @override
   Widget build(BuildContext context) {
@@ -139,62 +137,75 @@ class _ItemPageState extends State<ItemPage> {
                           Row(
                             children: [
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    if (quantities[index] > 0) {
+                                      quantities[index]--;
+                                    }
+                                  });
+                                },
                                 child: Container(
                                   height: 35,
-                                  width: 100,
+                                  width: 35,
                                   decoration: BoxDecoration(
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(5)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              print("remove in the cart");
-                                            },
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: Colors.white,
-                                            )),
-                                        Text("0",
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                        InkWell(
-                                            onTap: () {
-                                              dbHelper!
-                                                  .insert(Cart(
-                                                id: index,
-                                                productId: index.toString(),
-                                                productName: productName[index],
-                                                initialPrice:
-                                                    productPrice[index],
-                                                productPrice:
-                                                    productPrice[index],
-                                                quantity: 1,
-                                                unitTag: productUnit[index],
-                                                image: productImage[index],
-                                              ))
-                                                  .then((value) {
-                                                print(
-                                                    'Product is added to cart');
-                                                cart.addTotalPrice(double.parse(
-                                                    productPrice[index]
-                                                        .toString()));
-                                                cart.addCounter();
-                                              }).onError((error, stackTrace) {
-                                                print(error.toString());
-                                              });
-                                            },
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                            )),
-                                      ],
-                                    ),
+                                  child: Icon(
+                                    Icons.remove,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  quantities[index].toString(),
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    quantities[index]++;
+                                    if (quantities[index] > 0) {
+                                      dbHelper!
+                                          .insert(Cart(
+                                        id: index,
+                                        productId: index.toString(),
+                                        productName: productName[index],
+                                        initialPrice: productPrice[index],
+                                        productPrice: productPrice[index] *
+                                            quantities[index],
+                                        quantity: quantities[index],
+                                        unitTag: productUnit[index],
+                                        image: productImage[index],
+                                      ))
+                                          .then((value) {
+                                        print('Product is added to cart');
+                                        cart.addTotalPrice(double.parse(
+                                                productPrice[index]
+                                                    .toString()) *
+                                            quantities[index]);
+                                        cart.addCounter();
+                                      }).onError((error, stackTrace) {
+                                        print(error.toString());
+                                      });
+                                    } else {
+                                      print(
+                                          'Quantity should be greater than 0');
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 35,
+                                  width: 35,
+                                  decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -205,25 +216,31 @@ class _ItemPageState extends State<ItemPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        dbHelper!
-                            .insert(Cart(
-                          id: index,
-                          productId: index.toString(),
-                          productName: productName[index],
-                          initialPrice: productPrice[index],
-                          productPrice: productPrice[index],
-                          quantity: 1,
-                          unitTag: productUnit[index],
-                          image: productImage[index],
-                        ))
-                            .then((value) {
-                          print('Product is added to cart');
-                          cart.addTotalPrice(
-                              double.parse(productPrice[index].toString()));
-                          cart.addCounter();
-                        }).onError((error, stackTrace) {
-                          print(error.toString());
-                        });
+                        if (quantities[index] > 0) {
+                          dbHelper!
+                              .insert(Cart(
+                            id: index,
+                            productId: index.toString(),
+                            productName: productName[index],
+                            initialPrice: productPrice[index],
+                            productPrice:
+                                productPrice[index] * quantities[index],
+                            quantity: quantities[index],
+                            unitTag: productUnit[index],
+                            image: productImage[index],
+                          ))
+                              .then((value) {
+                            print('Product is added to cart');
+                            cart.addTotalPrice(
+                                double.parse(productPrice[index].toString()) *
+                                    quantities[index]);
+                            cart.addCounter();
+                          }).onError((error, stackTrace) {
+                            print(error.toString());
+                          });
+                        } else {
+                          print('Quantity should be greater than 0');
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
