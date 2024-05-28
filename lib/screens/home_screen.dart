@@ -98,13 +98,16 @@ class MyDrawerHome extends StatefulWidget {
 class _MyDrawerHomeState extends State<MyDrawerHome> {
   File? pickedImageFile;
   final TextEditingController _searchController = TextEditingController();
-  String userName = 'Admin';
-  String userPhoneNumber = '+919891477225';
+  String? name;
+  String? phoneNumber;
+  String? email;
+  //String userName = 'Admin';
+  //String userPhoneNumber = '+919891477225';
 
   @override
   void initState() {
     super.initState();
-    fetchUserDetails();
+    fetchUserData();
   }
 
   Future<void> pickImage() async {
@@ -121,25 +124,21 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
     }
   }
 
-  Future<void> fetchUserDetails() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null && user.email != null) {
-      try {
-        final userDoc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.email)
-            .get();
-        if (userDoc.exists) {
-          setState(() {
-            userName = userDoc['name'] ?? '';
-            userPhoneNumber = userDoc['phoneNumber'] ?? '';
-          });
-          print('User details fetched: $userName, $userPhoneNumber');
-        } else {
-          print('User document does not exist.');
-        }
-      } catch (e) {
-        print('Error fetching user details: $e');
+  Future<void> fetchUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      email = user.email;
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      if (userDoc.exists) {
+        setState(() {
+          name = userDoc['name'];
+          phoneNumber = userDoc['phoneNumber'];
+        });
       }
     }
   }
@@ -208,7 +207,9 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                       ),
                     ),
                     Text(
-                      userName.isNotEmpty ? userName : '$userName',
+                      name != null && name!.isNotEmpty
+                          ? name!
+                          : 'No name available',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     if (user != null && user.email != null)
@@ -219,9 +220,9 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                             fontSize: 15),
                       ),
                     Text(
-                      userPhoneNumber.isNotEmpty
-                          ? userPhoneNumber
-                          : '$userPhoneNumber',
+                      phoneNumber != null && phoneNumber!.isNotEmpty
+                          ? phoneNumber!
+                          : 'No phone number available',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                   ],

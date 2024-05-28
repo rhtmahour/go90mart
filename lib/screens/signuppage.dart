@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _phonenumber = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
@@ -20,10 +23,22 @@ class _SignupPageState extends State<SignupPage> {
       setState(() {
         isLoading = true;
       });
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email.text,
         password: _password.text,
       );
+
+      // Save user data to Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'name': _name.text,
+        'phoneNumber': _phonenumber.text,
+        'email': _email.text,
+      });
+
       setState(() {
         isLoading = false;
       });
@@ -73,7 +88,6 @@ class _SignupPageState extends State<SignupPage> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
-            // Wrapping with SingleChildScrollView to handle overflow
             child: Form(
               key: _formKey,
               child: Column(
@@ -85,6 +99,27 @@ class _SignupPageState extends State<SignupPage> {
                       height: 150,
                       alignment: Alignment.centerRight,
                     ),
+                  ),
+                  TextFormField(
+                    controller: _name,
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return 'Name is not Empty';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(labelText: "Name"),
+                  ),
+                  TextFormField(
+                    controller: _phonenumber,
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return 'Phone Number is not Empty';
+                      }
+                      return null;
+                    },
+                    decoration:
+                        const InputDecoration(labelText: "Phone Number"),
                   ),
                   TextFormField(
                     controller: _email,
