@@ -148,7 +148,7 @@ class _ItemPageState extends State<ItemPage> {
                                   height: 35,
                                   width: 35,
                                   decoration: BoxDecoration(
-                                      color: Colors.green,
+                                      color: Colors.red,
                                       borderRadius: BorderRadius.circular(5)),
                                   child: Icon(
                                     Icons.remove,
@@ -201,7 +201,7 @@ class _ItemPageState extends State<ItemPage> {
                                   height: 35,
                                   width: 35,
                                   decoration: BoxDecoration(
-                                      color: Colors.green,
+                                      color: Colors.red,
                                       borderRadius: BorderRadius.circular(5)),
                                   child: Icon(
                                     Icons.add,
@@ -216,41 +216,42 @@ class _ItemPageState extends State<ItemPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (quantities[index] > 0) {
-                          dbHelper!
-                              .insert(Cart(
-                            id: index,
-                            productId: index.toString(),
-                            productName: productName[index],
-                            initialPrice: productPrice[index],
-                            productPrice:
-                                productPrice[index] * quantities[index],
-                            quantity: quantities[index],
-                            unitTag: productUnit[index],
-                            image: productImage[index],
-                          ))
-                              .then((value) {
-                            print('Product is added to cart');
-                            cart.addTotalPrice(
-                                double.parse(productPrice[index].toString()) *
-                                    quantities[index]);
-                            cart.addCounter();
-                          }).onError((error, stackTrace) {
-                            print(error.toString());
-                          });
-                        } else {
-                          print('Quantity should be greater than 0');
-                        }
+                        dbHelper!
+                            .insert(Cart(
+                          id: index,
+                          productId: index.toString(),
+                          productName: productName[index].toString(),
+                          initialPrice: productPrice[index],
+                          productPrice: productPrice[index],
+                          quantity: 1,
+                          unitTag: productUnit[index].toString(),
+                          image: productImage[index].toString(),
+                        ))
+                            .then((value) {
+                          print('Product is added to cart');
+                          cart.addTotalPrice(
+                              double.parse(productPrice[index].toString()));
+                          cart.addCounter();
+                        }).onError((error, stackTrace) {
+                          print(error.toString());
+                        });
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: Colors.red,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                      child: Text(
-                        'Add to Cart',
-                        style: TextStyle(color: Colors.white),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.shopping_cart, color: Colors.white),
+                          SizedBox(width: 5),
+                          Text(
+                            'Cart',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
                   ],
