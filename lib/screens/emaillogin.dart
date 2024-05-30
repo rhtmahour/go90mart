@@ -10,6 +10,7 @@ class EmailLogin extends StatefulWidget {
 }
 
 class _EmailLoginState extends State<EmailLogin> {
+  bool _isObscure2 = true;
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
   final TextEditingController _email = TextEditingController();
@@ -92,6 +93,7 @@ class _EmailLoginState extends State<EmailLogin> {
                     decoration: const InputDecoration(labelText: "Email"),
                   ),
                   TextFormField(
+                    obscureText: _isObscure2,
                     controller: _password,
                     validator: (text) {
                       if (text == null || text.isEmpty) {
@@ -99,7 +101,18 @@ class _EmailLoginState extends State<EmailLogin> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(labelText: "password"),
+                    decoration: InputDecoration(
+                      labelText: "password",
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure2
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure2 = !_isObscure2;
+                            });
+                          }),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,

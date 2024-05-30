@@ -11,6 +11,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  bool _isObscure2 = true;
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
   final TextEditingController _name = TextEditingController();
@@ -132,6 +133,7 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: const InputDecoration(labelText: "Email"),
                   ),
                   TextFormField(
+                    obscureText: _isObscure2,
                     controller: _password,
                     validator: (text) {
                       if (text == null || text.isEmpty) {
@@ -139,7 +141,18 @@ class _SignupPageState extends State<SignupPage> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(labelText: "Password"),
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      suffixIcon: IconButton(
+                          icon: Icon(_isObscure2
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure2 = !_isObscure2;
+                            });
+                          }),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,

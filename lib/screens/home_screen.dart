@@ -79,7 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'orderPage': (context) => const OrderPage(),
         'myaccount': (context) => const MyAccountPage(),
         'phone': (context) => const MyPhone(),
-        'otp': (context) => MyOtp(),
+        'otp': (context) => MyOtp(
+              verificationId: '',
+              phoneNumber: '',
+            ),
         'authpage': (context) => const AuthPage(),
       },
       debugShowCheckedModeBanner: false,
@@ -212,6 +215,12 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                           : 'No name available',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
+                    Text(
+                      phoneNumber != null && phoneNumber!.isNotEmpty
+                          ? phoneNumber!
+                          : 'No phone number available',
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
                     if (user != null && user.email != null)
                       Text(
                         user.email!,
@@ -219,12 +228,6 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                             color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 15),
                       ),
-                    Text(
-                      phoneNumber != null && phoneNumber!.isNotEmpty
-                          ? phoneNumber!
-                          : 'No phone number available',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
                   ],
                 ),
               ),
@@ -353,7 +356,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
               text: 'Logout',
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushReplacementNamed('/emaillogin');
+                Navigator.of(context).pushReplacementNamed('myaccount');
               },
             ),
           ],

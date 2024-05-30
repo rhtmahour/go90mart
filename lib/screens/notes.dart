@@ -13,7 +13,7 @@ class _NotesPageState extends State<NotesPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Notes"),
+        title: Text("Support"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -25,7 +25,7 @@ class _NotesPageState extends State<NotesPage> {
         ),
       ),
       body: const Center(
-        child: Text("Notes Page"),
+        child: Text("Support Page"),
       ),
     );
   }

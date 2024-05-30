@@ -13,7 +13,7 @@ class _EventsPageState extends State<EventsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Events"),
+        title: Text("Reviews"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -25,7 +25,7 @@ class _EventsPageState extends State<EventsPage> {
         ),
       ),
       body: const Center(
-        child: Text("Events Page"),
+        child: Text("Review Page"),
       ),
     );
   }
