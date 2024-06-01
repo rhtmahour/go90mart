@@ -99,17 +99,25 @@ class MyDrawerHome extends StatefulWidget {
 }
 
 class _MyDrawerHomeState extends State<MyDrawerHome> {
+  User? user;
   File? pickedImageFile;
   final TextEditingController _searchController = TextEditingController();
   String? name;
   String? phoneNumber;
   String? email;
+  bool _isLoggedIn = false;
   //String userName = 'Admin';
   //String userPhoneNumber = '+919891477225';
-
   @override
   void initState() {
     super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    _isLoggedIn = user != null;
+    if (_isLoggedIn) {
+      // Fetch user data from Firestore or another source
+      name = user?.displayName;
+      phoneNumber = user?.phoneNumber;
+    }
     fetchUserData();
   }
 
@@ -183,12 +191,12 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                       child: IconButton(
                         icon: Icon(Icons.edit, color: Colors.white),
                         onPressed: () {
-                          if (user != null && user.email != null) {
+                          if (user != null && user!.email != null) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    UserProfileEditPage(email: user.email!),
+                                    UserProfileEditPage(email: user!.email!),
                               ),
                             );
                           }
@@ -210,20 +218,22 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                       ),
                     ),
                     Text(
-                      name != null && name!.isNotEmpty
+                      _isLoggedIn && name != null && name!.isNotEmpty
                           ? name!
                           : 'No name available',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     Text(
-                      phoneNumber != null && phoneNumber!.isNotEmpty
+                      _isLoggedIn &&
+                              phoneNumber != null &&
+                              phoneNumber!.isNotEmpty
                           ? phoneNumber!
                           : 'No phone number available',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    if (user != null && user.email != null)
+                    if (_isLoggedIn && user != null && user!.email != null)
                       Text(
-                        user.email!,
+                        user!.email!,
                         style: const TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 15),
@@ -352,13 +362,30 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
             SizedBox(
               height: 50,
             ),
-            PrettyFuzzyButton(
-              text: 'Logout',
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushReplacementNamed('myaccount');
-              },
-            ),
+            if (_isLoggedIn)
+              PrettyFuzzyButton(
+                text: 'Logout',
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  setState(() {
+                    _isLoggedIn = false;
+                  });
+                },
+              )
+            else
+              PrettyFuzzyButton(
+                text: 'Login',
+                onPressed: () async {
+                  // Handle login logic here
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyAccountPage()));
+                  setState(() {
+                    _isLoggedIn = true;
+                  });
+                },
+              ),
           ],
         ),
       ),
