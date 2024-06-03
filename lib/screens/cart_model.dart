@@ -1,22 +1,23 @@
 class Cart {
-  late final int? id;
-  final String? productId;
-  final String? productName;
-  final int? initialPrice;
-  final int? productPrice;
-  final int? quantity;
-  final String? unitTag;
-  final String? image;
+  int? id;
+  String? productId;
+  String? productName;
+  int? initialPrice;
+  int? productPrice;
+  int? quantity;
+  String? unitTag;
+  String? image;
 
-  Cart(
-      {required this.id,
-      required this.productId,
-      required this.productName,
-      required this.initialPrice,
-      required this.productPrice,
-      required this.quantity,
-      required this.unitTag,
-      required this.image});
+  Cart({
+    this.id,
+    this.productId,
+    this.productName,
+    this.initialPrice,
+    this.productPrice,
+    this.quantity,
+    this.unitTag,
+    this.image,
+  });
 
   Cart.fromMap(Map<dynamic, dynamic> res)
       : id = res['id'],
@@ -28,7 +29,7 @@ class Cart {
         unitTag = res["unitTag"],
         image = res["image"];
 
-  Map<String, Object?> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'productId': productId,
