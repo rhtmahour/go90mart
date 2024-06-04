@@ -397,27 +397,38 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(6.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Container(
-                      height: 40,
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
                       child: TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
-                          hintText: 'Search more than 10000+ products..',
+                          hintText: 'Search more than 10000+ products...',
+                          hintStyle: TextStyle(color: Colors.grey),
                           suffixIcon: IconButton(
-                            icon: const Icon(Icons.clear),
+                            icon: Icon(Icons.clear),
                             onPressed: () => _searchController.clear(),
                           ),
                           prefixIcon: IconButton(
-                            icon: const Icon(Icons.search),
+                            icon: Icon(Icons.search),
                             onPressed: () {
                               // Perform the search here
                             },
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
+                          border: InputBorder.none,
                         ),
                       ),
                     ),
