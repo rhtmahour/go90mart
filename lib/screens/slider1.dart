@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
+
+class Slider1 extends StatefulWidget {
+  const Slider1({Key? key}) : super(key: key);
+
+  @override
+  _Slider1State createState() => _Slider1State();
+}
+
+class _Slider1State extends State<Slider1> {
+  int currentPageIndex = 0; // State to track the current page index
+
+  final List<String> imagePaths = [
+    "assets/images/slider11.webp",
+    "assets/images/slider12.webp",
+    "assets/images/slider13.webp",
+    "assets/images/slider14.webp",
+    "assets/images/slider15.webp",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CarouselSlider.builder(
+          itemCount: imagePaths.length,
+          itemBuilder: (context, index, realIndex) {
+            return Container(
+              margin: const EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                image: DecorationImage(
+                  image: AssetImage(imagePaths[index]),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+          options: CarouselOptions(
+            height: 200.0,
+            enlargeCenterPage: true,
+            autoPlay: true,
+            aspectRatio: 16 / 9,
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enableInfiniteScroll: true,
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            viewportFraction: 0.8,
+            onPageChanged: (index, reason) {
+              setState(() {
+                currentPageIndex = index;
+              });
+            },
+          ),
+        ),
+        const SizedBox(height: 20.0),
+        DotsIndicator(
+          dotsCount: imagePaths.length,
+          position: currentPageIndex, // This should work as a double
+          decorator: DotsDecorator(
+            color: Colors.green,
+            activeColor: Colors.red,
+            size: const Size.square(9.0),
+            spacing: const EdgeInsets.all(3.0),
+            activeSize: const Size(18.0, 9.0),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

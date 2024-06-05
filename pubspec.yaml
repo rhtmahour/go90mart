@@ -152,12 +152,18 @@ flutter:
       - assets/images/18.jpeg
       - assets/images/user_profile.png
       - assets/images/img1.png
+      - assets/images/empty_cart.png
       - assets/images/slider1.png
       - assets/images/slider2.jpg
       - assets/images/slider3.png
       - assets/images/slider4.png
       - assets/images/slider5.webp
-      - assets/images/empty_cart.png
+      - assets/images/slider11.webp
+      - assets/images/slider12.webp
+      - assets/images/slider13.webp
+      - assets/images/slider14.webp
+      - assets/images/slider15.webp
+
       
       
   #   - family: Schyler

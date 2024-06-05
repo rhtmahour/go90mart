@@ -37,6 +37,7 @@ import 'package:grocery_onboarding_app/screens/privacy_policy.dart';
 import 'package:grocery_onboarding_app/screens/product.dart';
 import 'package:grocery_onboarding_app/screens/send_feedback.dart';
 import 'package:grocery_onboarding_app/screens/settings.dart';
+import 'package:grocery_onboarding_app/screens/slider1.dart';
 import 'package:grocery_onboarding_app/screens/slider_screen.dart';
 import 'package:grocery_onboarding_app/screens/category.dart';
 import 'package:grocery_onboarding_app/screens/homebottombar.dart';
@@ -433,9 +434,10 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                       ),
                     ),
                   ),
-                  const SliderPage(),
+                  const Slider1(),
                   const Category(),
                   const ProductPage(),
+                  const SliderPage(),
                   const BrandPage(),
                 ],
               ),

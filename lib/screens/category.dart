@@ -23,6 +23,9 @@ class Category extends StatelessWidget {
           ],
         ),
         //Fisrt row of images
+        SizedBox(
+          height: 5,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -31,7 +34,7 @@ class Category extends StatelessWidget {
                 Navigator.pushNamed(context, '/third');
               },
               child: Container(
-                margin: const EdgeInsets.only(right: 11),
+                margin: const EdgeInsets.only(right: 11, left: 10),
                 height: 80,
                 width: 80,
                 decoration: BoxDecoration(
@@ -46,6 +49,9 @@ class Category extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             InkWell(
               onTap: () {
@@ -68,6 +74,9 @@ class Category extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/third');
@@ -89,6 +98,9 @@ class Category extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/third');
@@ -109,6 +121,9 @@ class Category extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
           ],
         ),
@@ -159,7 +174,7 @@ class Category extends StatelessWidget {
                 Navigator.pushNamed(context, '/third');
               },
               child: Container(
-                margin: const EdgeInsets.only(right: 11),
+                margin: const EdgeInsets.only(right: 11, left: 10),
                 height: 80,
                 width: 80,
                 decoration: BoxDecoration(
@@ -174,6 +189,9 @@ class Category extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             InkWell(
               onTap: () {
@@ -196,6 +214,9 @@ class Category extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/third');
@@ -216,6 +237,9 @@ class Category extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             InkWell(
               onTap: () {
@@ -240,6 +264,9 @@ class Category extends StatelessWidget {
             ),
           ],
         ),
+        SizedBox(
+          height: 5,
+        ),
         //Text of Second row category
         const Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,7 +279,7 @@ class Category extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
-            Padding(padding: EdgeInsets.only(left: 35)),
+            Padding(padding: EdgeInsets.only(left: 20)),
             Text(
               'Bakery',
               style: TextStyle(
@@ -268,7 +295,7 @@ class Category extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
-            Padding(padding: EdgeInsets.only(right: 25)),
+            Padding(padding: EdgeInsets.only(right: 30)),
             Text(
               'Instant Food',
               style: TextStyle(
