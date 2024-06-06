@@ -13,10 +13,10 @@ class _SliderPageState extends State<SliderPage> {
   int currentPageIndex = 0; // State to track the current page index
 
   final List<String> imagePaths = [
-    "assets/images/slider1.png",
-    "assets/images/slider2.jpg",
-    "assets/images/slider3.png",
-    "assets/images/slider4.png",
+    "assets/images/slider1.webp",
+    "assets/images/slider2.webp",
+    "assets/images/slider3.webp",
+    "assets/images/slider4.webp",
     "assets/images/slider5.webp",
   ];
 

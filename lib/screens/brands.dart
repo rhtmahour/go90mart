@@ -218,7 +218,7 @@ class BrandPage extends StatelessWidget {
                   child: Row(
                     children: [
                       const Text(
-                        'Durex',
+                        'Catch',
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),
@@ -232,7 +232,7 @@ class BrandPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white,
                               image: const DecorationImage(
-                                  image: AssetImage('assets/images/durex.png'),
+                                  image: AssetImage('assets/images/catch.png'),
                                   fit: BoxFit.cover)),
                           alignment: Alignment.topCenter,
                         ),

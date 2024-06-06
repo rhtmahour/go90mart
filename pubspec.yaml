@@ -123,7 +123,7 @@ flutter:
       - assets/images/coca_cola.png
       - assets/images/loreal.png
       - assets/images/india_gate.png
-      - assets/images/durex.png
+      - assets/images/catch.png
       - assets/images/19.png
       - assets/images/20.png
       - assets/images/21.png
@@ -153,10 +153,10 @@ flutter:
       - assets/images/user_profile.png
       - assets/images/img1.png
       - assets/images/empty_cart.png
-      - assets/images/slider1.png
-      - assets/images/slider2.jpg
-      - assets/images/slider3.png
-      - assets/images/slider4.png
+      - assets/images/slider1.webp
+      - assets/images/slider2.webp
+      - assets/images/slider3.webp
+      - assets/images/slider4.webp
       - assets/images/slider5.webp
       - assets/images/slider11.webp
       - assets/images/slider12.webp
