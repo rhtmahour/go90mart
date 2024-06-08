@@ -53,7 +53,7 @@ class lays extends StatelessWidget {
                   ),
                 ),
                 Image.asset(
-                  "assets/images/lays1.webp",
+                  "assets/images/11.jpeg",
                   height: 280,
                   width: 280,
                   fit: BoxFit.contain,

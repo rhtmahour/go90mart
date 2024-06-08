@@ -4,7 +4,9 @@ import 'package:grocery_onboarding_app/screens/cart_model.dart';
 import 'package:grocery_onboarding_app/screens/cart_provider.dart';
 import 'package:grocery_onboarding_app/screens/cartpage.dart';
 import 'package:grocery_onboarding_app/screens/db_helper.dart';
+import 'package:grocery_onboarding_app/screens/productdetailpage.dart';
 import 'package:provider/provider.dart';
+// Import the new detail page
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key});
@@ -62,7 +64,7 @@ class _ItemPageState extends State<ItemPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Product List',
+          'Store',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -104,157 +106,172 @@ class _ItemPageState extends State<ItemPage> {
         child: ListView.builder(
           itemCount: productName.length,
           itemBuilder: (BuildContext context, int index) {
-            return Card(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Image.asset(
-                      productImage[index],
-                      height: 100,
-                      width: 100,
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailPage(
+                      productName: productName[index],
+                      productUnit: productUnit[index],
+                      productPrice: productPrice[index],
+                      productImage: productImage[index],
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            productName[index],
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "${productUnit[index]} Rs ${productPrice[index]}",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    if (quantities[index] > 0) {
-                                      quantities[index]--;
-                                    }
-                                  });
-                                },
-                                child: Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  quantities[index].toString(),
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    quantities[index]++;
-                                    if (quantities[index] > 0) {
-                                      dbHelper!
-                                          .insert(Cart(
-                                        id: index,
-                                        productId: index.toString(),
-                                        productName: productName[index],
-                                        initialPrice: productPrice[index],
-                                        productPrice: productPrice[index] *
-                                            quantities[index],
-                                        quantity: quantities[index],
-                                        unitTag: productUnit[index],
-                                        image: productImage[index],
-                                      ))
-                                          .then((value) {
-                                        print('Product is added to cart');
-                                        cart.addTotalPrice(double.parse(
-                                                productPrice[index]
-                                                    .toString()) *
-                                            quantities[index]);
-                                        cart.addCounter();
-                                      }).onError((error, stackTrace) {
-                                        print(error.toString());
-                                      });
-                                    } else {
-                                      print(
-                                          'Quantity should be greater than 0');
-                                    }
-                                  });
-                                },
-                                child: Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                  ),
+                );
+              },
+              child: Card(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        productImage[index],
+                        height: 100,
+                        width: 100,
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        dbHelper!
-                            .insert(Cart(
-                          id: index,
-                          productId: index.toString(),
-                          productName: productName[index].toString(),
-                          initialPrice: productPrice[index],
-                          productPrice: productPrice[index],
-                          quantity: 1,
-                          unitTag: productUnit[index].toString(),
-                          image: productImage[index].toString(),
-                        ))
-                            .then((value) {
-                          print('Product is added to cart');
-                          cart.addTotalPrice(
-                              double.parse(productPrice[index].toString()));
-                          cart.addCounter();
-                        }).onError((error, stackTrace) {
-                          print(error.toString());
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              productName[index],
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "${productUnit[index]} Rs ${productPrice[index]}",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 5),
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      if (quantities[index] > 0) {
+                                        quantities[index]--;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    quantities[index].toString(),
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      quantities[index]++;
+                                      if (quantities[index] > 0) {
+                                        dbHelper!
+                                            .insert(Cart(
+                                          id: index,
+                                          productId: index.toString(),
+                                          productName: productName[index],
+                                          initialPrice: productPrice[index],
+                                          productPrice: productPrice[index] *
+                                              quantities[index],
+                                          quantity: quantities[index],
+                                          unitTag: productUnit[index],
+                                          image: productImage[index],
+                                        ))
+                                            .then((value) {
+                                          print('Product is added to cart');
+                                          cart.addTotalPrice(double.parse(
+                                                  productPrice[index]
+                                                      .toString()) *
+                                              quantities[index]);
+                                          cart.addCounter();
+                                        }).onError((error, stackTrace) {
+                                          print(error.toString());
+                                        });
+                                      } else {
+                                        print(
+                                            'Quantity should be greater than 0');
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.shopping_cart, color: Colors.white),
-                          SizedBox(width: 5),
-                          Text(
-                            'Cart',
-                            style: TextStyle(color: Colors.white),
+                      ElevatedButton(
+                        onPressed: () {
+                          dbHelper!
+                              .insert(Cart(
+                            id: index,
+                            productId: index.toString(),
+                            productName: productName[index].toString(),
+                            initialPrice: productPrice[index],
+                            productPrice: productPrice[index],
+                            quantity: 1,
+                            unitTag: productUnit[index].toString(),
+                            image: productImage[index].toString(),
+                          ))
+                              .then((value) {
+                            print('Product is added to cart');
+                            cart.addTotalPrice(
+                                double.parse(productPrice[index].toString()));
+                            cart.addCounter();
+                          }).onError((error, stackTrace) {
+                            print(error.toString());
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                        ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.shopping_cart, color: Colors.white),
+                            SizedBox(width: 5),
+                            Text(
+                              'Cart',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

@@ -97,7 +97,7 @@ class ProductPage extends StatelessWidget {
                             color: Colors.white,
                             border: Border.all(width: 0.5, color: Colors.black),
                             image: const DecorationImage(
-                              image: AssetImage("assets/images/lays1.webp"),
+                              image: AssetImage("assets/images/11.jpeg"),
                               fit: BoxFit.cover,
                             ),
                           )),
