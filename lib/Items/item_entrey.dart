@@ -55,6 +55,18 @@ class _ItemPageState extends State<ItemPage> {
     'assets/images/Redlabel.png',
     'assets/images/odonil.webp',
   ];
+  List<String> productDescription = [
+    'BURSTING FLAVOUR: The Lay’s India’s Magic Masala spice blend will excite your tastebuds;QUALITY POTATOES',
+    'This rich shampoo is a blend of pure soya bean protein, berberry and wild tumeric extracts to cleanse hair without disturbing its natural pH balance. Prevents color fade',
+    'Bonns latest addition to their hugely popular range of 100% Eggless cakes, Sweet Desire Assorted Packs',
+    'Cadbury OREO crème biscuits are made with cocoa, which defines their unique chocolatey flavour',
+    'Ariel Matic liquid detergent removes tough stains in just 1 wash and protects your colored clothes from fading',
+    'Our gulkand is prepared from high quality pink colored Indian Rose Petals prepared by traditional Ayurvedic method',
+    'Baygon Max Mosquito and Fly Killer spray is an easy way to ensure your home is free from mosquito-borne diseases like Dengue and Malaria',
+    'Colgate Visible White starts whitening your teeth in 1 week and offers you a real white smile when used as directed',
+    'The taste of Brooke Bond Red Label tea helps you spread warmth and cheer in your family.',
+    'Odonil Room Spray is formulated with a special fragrance that provides long-lasting freshness and a pleasant rose scent to your home or office space',
+  ];
 
   List<int> quantities = List<int>.generate(10, (int index) => 0);
 
@@ -116,6 +128,7 @@ class _ItemPageState extends State<ItemPage> {
                       productUnit: productUnit[index],
                       productPrice: productPrice[index],
                       productImage: productImage[index],
+                      productDescription: productDescription[index],
                     ),
                   ),
                 );
@@ -164,7 +177,7 @@ class _ItemPageState extends State<ItemPage> {
                                     height: 35,
                                     width: 35,
                                     decoration: BoxDecoration(
-                                        color: Colors.red,
+                                        color: Colors.green,
                                         borderRadius: BorderRadius.circular(5)),
                                     child: Icon(
                                       Icons.remove,
@@ -217,7 +230,7 @@ class _ItemPageState extends State<ItemPage> {
                                     height: 35,
                                     width: 35,
                                     decoration: BoxDecoration(
-                                        color: Colors.red,
+                                        color: Colors.green,
                                         borderRadius: BorderRadius.circular(5)),
                                     child: Icon(
                                       Icons.add,
@@ -253,7 +266,7 @@ class _ItemPageState extends State<ItemPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),

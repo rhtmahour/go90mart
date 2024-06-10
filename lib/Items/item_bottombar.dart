@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemBottomBar extends StatelessWidget {
@@ -12,40 +11,23 @@ class ItemBottomBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, "CartPage");
-            },
-            child: Container(
-              height: 50,
-              width: 80,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(
-                CupertinoIcons.cart_fill,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: 50,
+          width: 50,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.circular(10),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 50,
-              width: 200,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Text(
-                "Add to Cart",
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.shopping_cart, color: Colors.white),
+              SizedBox(width: 5),
+              const Text(
+                "Cart",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -53,9 +35,9 @@ class ItemBottomBar extends StatelessWidget {
                   letterSpacing: 1,
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

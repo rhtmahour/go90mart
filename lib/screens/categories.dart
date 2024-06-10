@@ -40,7 +40,6 @@ class CategoriesPage extends StatelessWidget {
         mainAxisSpacing: 15,
         shrinkWrap: true,
         children: [
-          //for (int i = 19; i < 27; i++)
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
