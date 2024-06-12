@@ -3,21 +3,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grocery_onboarding_app/Items/arielmaticdetail.dart';
-import 'package:grocery_onboarding_app/Items/baidyanathgulkanddetail.dart';
-import 'package:grocery_onboarding_app/Items/baygonmaxdetail.dart';
-import 'package:grocery_onboarding_app/Items/biotiqueshampoodetail.dart';
-import 'package:grocery_onboarding_app/Items/bonncakepage.dart';
-import 'package:grocery_onboarding_app/Items/colgatevisible.dart';
-import 'package:grocery_onboarding_app/Items/dairymilkdetail.dart';
-import 'package:grocery_onboarding_app/Items/gluconddetail.dart';
+//import 'package:grocery_onboarding_app/Items/arielmaticdetail.dart';
+//import 'package:grocery_onboarding_app/Items/baidyanathgulkanddetail.dart';
+//import 'package:grocery_onboarding_app/Items/baygonmaxdetail.dart';
+//import 'package:grocery_onboarding_app/Items/biotiqueshampoodetail.dart';
+//import 'package:grocery_onboarding_app/Items/bonncakepage.dart';
+//import 'package:grocery_onboarding_app/Items/colgatevisible.dart';
+//import 'package:grocery_onboarding_app/Items/dairymilkdetail.dart';
+//import 'package:grocery_onboarding_app/Items/gluconddetail.dart';
 import 'package:grocery_onboarding_app/Items/item_entrey.dart';
-import 'package:grocery_onboarding_app/Items/laysblue.dart';
-import 'package:grocery_onboarding_app/Items/laysdetail.dart';
-import 'package:grocery_onboarding_app/Items/odonildetail.dart';
-import 'package:grocery_onboarding_app/Items/oreocookiedetail.dart';
-import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
-import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
+//import 'package:grocery_onboarding_app/Items/laysblue.dart';
+//import 'package:grocery_onboarding_app/Items/laysdetail.dart';
+//import 'package:grocery_onboarding_app/Items/odonildetail.dart';
+//import 'package:grocery_onboarding_app/Items/oreocookiedetail.dart';
+//import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
+//import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
 import 'package:grocery_onboarding_app/screens/Categories.dart';
 import 'package:grocery_onboarding_app/screens/MyAccountPage.dart';
 import 'package:grocery_onboarding_app/screens/auth_page.dart';
@@ -61,20 +61,20 @@ class _HomeScreenState extends State<HomeScreen> {
         '/second': (context) => const CategoriesPage(),
         '/third': (context) => ItemPage(),
         'CartPage': (context) => const CartPage(),
-        'laysblue': (context) => const laysbluePage(),
-        'dairymilk': (context) => const dairymilk(),
-        'lays': (context) => const lays(),
-        'pepsi': (context) => const pepsi(),
-        'odonil': (context) => const odonil(),
-        'glucond': (context) => const glucond(),
-        'redlabel': (context) => const redlabel(),
+        /*'laysblue': (context) => laysbluePage(),
+        'dairymilk': (context) => dairymilk(),
+        'lays': (context) => lays(),
+        'pepsi': (context) => pepsi(),
+        'odonil': (context) => odonil(),
+        'glucond': (context) => glucond(),
+        'redlabel': (context) => redlabel(),
         'bitotiqueshapoo': (context) => biotiqueshapoo(),
         'bonncake': (context) => bonncakepage(),
         'oreocookie': (context) => oreocookiepage(),
         'arielmatic': (context) => arielmaticpage(),
         'baidyanathgulkand': (context) => baidyanathgulkandpage(),
         'baygonmax': (context) => baygonmaxpage(),
-        'colgatevisible': (context) => colgatevisiblepage(),
+        'colgatevisible': (context) => colgatevisiblepage(),*/
         'orderPage': (context) => const OrderPage(),
         'myaccount': (context) => const MyAccountPage(),
         'phone': (context) => const MyPhone(),
@@ -432,7 +432,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                   ),
                   const Slider1(),
                   const Category(),
-                  const ProductPage(),
+                  ProductPage(),
                   const SliderPage(),
                   const BrandPage(),
                 ],

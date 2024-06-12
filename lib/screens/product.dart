@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_onboarding_app/Items/dairymilkdetail.dart';
+import 'package:grocery_onboarding_app/Items/gluconddetail.dart';
+import 'package:grocery_onboarding_app/Items/laysdetail.dart';
+import 'package:grocery_onboarding_app/Items/odonildetail.dart';
+import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
+import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
+//import 'package:grocery_onboarding_app/Items/dairymilkdetail.dart';
+//import 'package:grocery_onboarding_app/Items/gluconddetail.dart';
+//import 'package:grocery_onboarding_app/Items/laysdetail.dart';
+//import 'package:grocery_onboarding_app/Items/odonildetail.dart';
+//import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
+//import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({Key? key}) : super(key: key);
+  ProductPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +65,10 @@ class ProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, "dairymilk");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => dairymilk()));
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
@@ -84,7 +99,8 @@ class ProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'lays');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => lays()));
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
@@ -115,7 +131,8 @@ class ProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'pepsi');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => pepsi()));
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
@@ -146,7 +163,8 @@ class ProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'odonil');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => odonil()));
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
@@ -177,7 +195,8 @@ class ProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'glucond');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => glucond()));
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
@@ -208,7 +227,10 @@ class ProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'redlabel');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => redlabel()));
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),

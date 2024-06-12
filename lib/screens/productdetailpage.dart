@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery_onboarding_app/Items/item_bottombar.dart';
 
 class ProductDetailPage extends StatelessWidget {
+  final int index;
   final String productName;
   final String productUnit;
   final int productPrice;
@@ -9,6 +10,7 @@ class ProductDetailPage extends StatelessWidget {
   final String productDescription;
 
   ProductDetailPage({
+    required this.index,
     required this.productName,
     required this.productUnit,
     required this.productPrice,
@@ -205,7 +207,14 @@ class ProductDetailPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const ItemBottomBar(),
+      bottomNavigationBar: ItemBottomBar(
+        index: index,
+        productName: productName,
+        productUnit: productUnit,
+        productPrice: productPrice,
+        productImage: productImage,
+        productDescription: productDescription,
+      ),
     );
   }
 }

@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_onboarding_app/Items/item_bottombar.dart';
+//import 'package:grocery_onboarding_app/Items/item_bottombar.dart';
 
 class redlabel extends StatelessWidget {
-  const redlabel({super.key});
+  /*final String productName;
+  final String productUnit;
+  final int productPrice; // Assuming productPrice is of type int
+  final String productImage;
+  final String productDescription;
+  final int index;
+
+  redlabel({
+    super.key,
+    required this.productName,
+    required this.productUnit,
+    required this.productPrice,
+    required this.productImage,
+    required this.productDescription,
+    required this.index,
+  });*/
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +208,14 @@ class redlabel extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const ItemBottomBar(),
+      /*bottomNavigationBar: ItemBottomBar(
+        index: index,
+        productName: productName,
+        productUnit: productUnit,
+        productPrice: productPrice,
+        productImage: productImage,
+        productDescription: productDescription,
+      ),*/
     );
   }
 }

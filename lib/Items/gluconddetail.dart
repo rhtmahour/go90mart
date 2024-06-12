@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_onboarding_app/Items/item_bottombar.dart';
+//import 'package:grocery_onboarding_app/Items/item_bottombar.dart';
 
 class glucond extends StatelessWidget {
-  const glucond({super.key});
+  /*final int index;
+  final String productName;
+  final String productUnit;
+  final int productPrice;
+  final String productImage;
+  final String productDescription;
+
+  glucond({
+    required this.index,
+    required this.productName,
+    required this.productUnit,
+    required this.productPrice,
+    required this.productImage,
+    required this.productDescription,
+  });*/
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +60,7 @@ class glucond extends StatelessWidget {
                         child: const Icon(
                           Icons.favorite,
                           size: 30,
-                          color: Colors.green,
+                          color: Colors.red,
                         ),
                       ),
                     ],
@@ -193,7 +207,14 @@ class glucond extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const ItemBottomBar(),
+      /*bottomNavigationBar: ItemBottomBar(
+        index: index,
+        productName: productName,
+        productUnit: productUnit,
+        productPrice: productPrice,
+        productImage: productImage,
+        productDescription: productDescription,
+      ),*/
     );
   }
 }

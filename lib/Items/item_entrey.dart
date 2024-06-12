@@ -124,6 +124,7 @@ class _ItemPageState extends State<ItemPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ProductDetailPage(
+                      index: index,
                       productName: productName[index],
                       productUnit: productUnit[index],
                       productPrice: productPrice[index],

@@ -2,7 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:grocery_onboarding_app/Items/item_bottombar.dart';
 
 class colgatevisiblepage extends StatelessWidget {
-  const colgatevisiblepage({super.key});
+  final int index;
+  final String productName;
+  final String productUnit;
+  final int productPrice;
+  final String productImage;
+  final String productDescription;
+
+  colgatevisiblepage({
+    required this.index,
+    required this.productName,
+    required this.productUnit,
+    required this.productPrice,
+    required this.productImage,
+    required this.productDescription,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +207,14 @@ class colgatevisiblepage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const ItemBottomBar(),
+      bottomNavigationBar: ItemBottomBar(
+        index: index,
+        productName: productName,
+        productUnit: productUnit,
+        productPrice: productPrice,
+        productImage: productImage,
+        productDescription: productDescription,
+      ),
     );
   }
 }
