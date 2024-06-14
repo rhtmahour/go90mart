@@ -6,7 +6,6 @@ import 'package:grocery_onboarding_app/screens/cartpage.dart';
 import 'package:grocery_onboarding_app/screens/db_helper.dart';
 import 'package:grocery_onboarding_app/screens/productdetailpage.dart';
 import 'package:provider/provider.dart';
-// Import the new detail page
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key});
@@ -69,6 +68,7 @@ class _ItemPageState extends State<ItemPage> {
   ];
 
   List<int> quantities = List<int>.generate(10, (int index) => 0);
+  List<bool> isAddButtonVisible = List<bool>.generate(10, (index) => true);
 
   @override
   Widget build(BuildContext context) {
@@ -166,39 +166,133 @@ class _ItemPageState extends State<ItemPage> {
                             SizedBox(height: 5),
                             Row(
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      if (quantities[index] > 0) {
-                                        quantities[index]--;
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text(
-                                    quantities[index].toString(),
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      quantities[index]++;
-                                      if (quantities[index] > 0) {
+                                // Quantity control
+                                if (quantities[index] > 0)
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            quantities[index]--;
+                                            if (quantities[index] <= 0) {
+                                              quantities[index] = 0;
+                                              isAddButtonVisible[index] = true;
+                                              dbHelper!.delete(index);
+                                              cart.removerCounter();
+                                              cart.removeTotalPrice(
+                                                  double.parse(
+                                                          productPrice[index]
+                                                              .toString()) *
+                                                      quantities[index]);
+                                            } else {
+                                              dbHelper!
+                                                  .updateQuantity(Cart(
+                                                      id: index,
+                                                      productId:
+                                                          index.toString(),
+                                                      productName:
+                                                          productName[index],
+                                                      initialPrice:
+                                                          productPrice[index],
+                                                      productPrice:
+                                                          productPrice[index] *
+                                                              quantities[index],
+                                                      quantity:
+                                                          quantities[index],
+                                                      unitTag:
+                                                          productUnit[index],
+                                                      image:
+                                                          productImage[index]))
+                                                  .then((value) {
+                                                cart.removeTotalPrice(
+                                                    double.parse(
+                                                            productPrice[index]
+                                                                .toString()) *
+                                                        (quantities[index] +
+                                                            1));
+                                                cart.addTotalPrice(double.parse(
+                                                        productPrice[index]
+                                                            .toString()) *
+                                                    quantities[index]);
+                                              }).onError((error, stackTrace) {
+                                                print(error.toString());
+                                              });
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 35,
+                                          width: 35,
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        quantities[index].toString(),
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      SizedBox(width: 10),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            quantities[index]++;
+                                            dbHelper!
+                                                .updateQuantity(Cart(
+                                                    id: index,
+                                                    productId: index.toString(),
+                                                    productName:
+                                                        productName[index],
+                                                    initialPrice:
+                                                        productPrice[index],
+                                                    productPrice:
+                                                        productPrice[index] *
+                                                            quantities[index],
+                                                    quantity: quantities[index],
+                                                    unitTag: productUnit[index],
+                                                    image: productImage[index]))
+                                                .then((value) {
+                                              cart.addTotalPrice(double.parse(
+                                                      productPrice[index]
+                                                          .toString()) *
+                                                  quantities[index]);
+                                              cart.removeTotalPrice(
+                                                  double.parse(
+                                                          productPrice[index]
+                                                              .toString()) *
+                                                      (quantities[index] - 1));
+                                            }).onError((error, stackTrace) {
+                                              print(error.toString());
+                                            });
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 35,
+                                          width: 35,
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                else if (isAddButtonVisible[index])
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        quantities[index]++;
+                                        isAddButtonVisible[index] = false;
                                         dbHelper!
                                             .insert(Cart(
                                           id: index,
@@ -221,24 +315,23 @@ class _ItemPageState extends State<ItemPage> {
                                         }).onError((error, stackTrace) {
                                           print(error.toString());
                                         });
-                                      } else {
-                                        print(
-                                            'Quantity should be greater than 0');
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 35,
+                                      width: 35,
+                                      decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  )
+                                else
+                                  Container(),
                               ],
                             ),
                           ],

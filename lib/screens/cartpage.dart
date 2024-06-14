@@ -184,7 +184,7 @@ class _CartPageState extends State<CartPage> {
                                                       height: 35,
                                                       width: 100,
                                                       decoration: BoxDecoration(
-                                                          color: Colors.red,
+                                                          color: Colors.green,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(5)),

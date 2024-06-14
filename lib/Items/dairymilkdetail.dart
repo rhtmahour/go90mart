@@ -60,7 +60,7 @@ class dairymilk extends StatelessWidget {
                         child: const Icon(
                           Icons.favorite,
                           size: 30,
-                          color: Colors.green,
+                          color: Colors.red,
                         ),
                       ),
                     ],
