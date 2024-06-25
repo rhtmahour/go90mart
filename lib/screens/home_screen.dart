@@ -410,22 +410,24 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                           ),
                         ],
                       ),
-                      child: TextField(
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          hintText: 'Search more than 10000+ products...',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.clear),
-                            onPressed: () => _searchController.clear(),
+                      child: Center(
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            hintText: 'Search more than 10000+ products...',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.clear),
+                              onPressed: () => _searchController.clear(),
+                            ),
+                            prefixIcon: IconButton(
+                              icon: Icon(Icons.search),
+                              onPressed: () {
+                                // Perform the search here
+                              },
+                            ),
+                            border: InputBorder.none,
                           ),
-                          prefixIcon: IconButton(
-                            icon: Icon(Icons.search),
-                            onPressed: () {
-                              // Perform the search here
-                            },
-                          ),
-                          border: InputBorder.none,
                         ),
                       ),
                     ),

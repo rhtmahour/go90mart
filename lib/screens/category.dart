@@ -279,7 +279,7 @@ class Category extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
-            Padding(padding: EdgeInsets.only(left: 20)),
+            Padding(padding: EdgeInsets.only(left: 30)),
             Text(
               'Bakery',
               style: TextStyle(
@@ -287,7 +287,7 @@ class Category extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
-            Padding(padding: EdgeInsets.only(right: 50)),
+            Padding(padding: EdgeInsets.only(right: 55)),
             Text(
               'Coffee',
               style: TextStyle(
@@ -295,7 +295,7 @@ class Category extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
-            Padding(padding: EdgeInsets.only(right: 30)),
+            Padding(padding: EdgeInsets.only(right: 50)),
             Text(
               'Instant Food',
               style: TextStyle(

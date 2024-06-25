@@ -77,14 +77,15 @@ class _CartPageState extends State<CartPage> {
                               height: 20,
                             ),
                             Text('Your cart is empty 😌',
-                                style: Theme.of(context).textTheme.headline5),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
                                 'Explore products and shop your\nfavourite items',
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.subtitle2)
+                                style: Theme.of(context).textTheme.titleSmall)
                           ],
                         ),
                       );
@@ -199,6 +200,14 @@ class _CartPageState extends State<CartPage> {
                                                           children: [
                                                             InkWell(
                                                                 onTap: () {
+                                                                  int itemPrice = snapshot
+                                                                      .data![
+                                                                          index]
+                                                                      .productPrice!;
+                                                                  cart.removerCounter();
+                                                                  cart.removeTotalPrice(
+                                                                      itemPrice
+                                                                          .toDouble());
                                                                   int quantity = snapshot
                                                                       .data![
                                                                           index]
@@ -226,10 +235,6 @@ class _CartPageState extends State<CartPage> {
                                                                             unitTag: snapshot.data![index].unitTag.toString(),
                                                                             image: snapshot.data![index].image.toString()))
                                                                         .then((value) {
-                                                                      newPrice =
-                                                                          0;
-                                                                      quantity =
-                                                                          0;
                                                                       cart.removeTotalPrice(double.parse(snapshot
                                                                           .data![
                                                                               index]
@@ -257,6 +262,14 @@ class _CartPageState extends State<CartPage> {
                                                                         .white)),
                                                             InkWell(
                                                                 onTap: () {
+                                                                  int itemPrice = snapshot
+                                                                      .data![
+                                                                          index]
+                                                                      .productPrice!;
+                                                                  cart.addCounter();
+                                                                  cart.addTotalPrice(
+                                                                      itemPrice
+                                                                          .toDouble());
                                                                   int quantity = snapshot
                                                                       .data![
                                                                           index]
@@ -306,10 +319,6 @@ class _CartPageState extends State<CartPage> {
                                                                               .toString()))
                                                                       .then(
                                                                           (value) {
-                                                                    newPrice =
-                                                                        0;
-                                                                    quantity =
-                                                                        0;
                                                                     cart.addTotalPrice(double.parse(snapshot
                                                                         .data![
                                                                             index]
@@ -363,38 +372,44 @@ class _CartPageState extends State<CartPage> {
                       title: 'Discount',
                       value: r'Rs.' + '0',
                     ),
+                    const Divider(thickness: 1),
                     ReusableWidget(
                       title: 'Total',
                       value: r'Rs.' + value.getTotalPrice().toStringAsFixed(2),
                     ),
-                    const Divider(thickness: 1),
-                    MaterialButton(
-                      minWidth: 300,
-                      height: 50,
-                      color: Colors.green,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OrderPage()));
-                      },
-                      shape: RoundedRectangleBorder(
-                          side: const BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: const Text(
-                        "Check Out",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.white),
-                      ),
-                    )
                   ],
                 ),
               );
             })
           ],
         ),
+      ),
+      bottomNavigationBar: Consumer<CartProvider>(
+        builder: (context, value, child) {
+          return Visibility(
+            visible: value.getTotalPrice().toStringAsFixed(2) == "0.00"
+                ? false
+                : true,
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: MaterialButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => OrderPage()));
+                },
+                child: Text(
+                  'Check Out',
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -407,18 +422,18 @@ class ReusableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           Text(
-            value.toString(),
-            style: Theme.of(context).textTheme.subtitle2,
-          )
+            value,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ],
       ),
     );

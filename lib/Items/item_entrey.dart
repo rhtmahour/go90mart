@@ -165,6 +165,7 @@ class _ItemPageState extends State<ItemPage> {
                             ),
                             SizedBox(height: 5),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 // Quantity control
                                 if (quantities[index] > 0)
@@ -172,18 +173,15 @@ class _ItemPageState extends State<ItemPage> {
                                     children: [
                                       InkWell(
                                         onTap: () {
+                                          cart.removerCounter();
+                                          cart.removeTotalPrice(double.parse(
+                                              productPrice[index].toString()));
                                           setState(() {
                                             quantities[index]--;
                                             if (quantities[index] <= 0) {
                                               quantities[index] = 0;
                                               isAddButtonVisible[index] = true;
                                               dbHelper!.delete(index);
-                                              cart.removerCounter();
-                                              cart.removeTotalPrice(
-                                                  double.parse(
-                                                          productPrice[index]
-                                                              .toString()) *
-                                                      quantities[index]);
                                             } else {
                                               dbHelper!
                                                   .updateQuantity(Cart(
@@ -241,6 +239,9 @@ class _ItemPageState extends State<ItemPage> {
                                       SizedBox(width: 10),
                                       InkWell(
                                         onTap: () {
+                                          cart.addCounter();
+                                          cart.addTotalPrice(double.parse(
+                                              productPrice[index].toString()));
                                           setState(() {
                                             quantities[index]++;
                                             dbHelper!
@@ -295,22 +296,20 @@ class _ItemPageState extends State<ItemPage> {
                                         isAddButtonVisible[index] = false;
                                         dbHelper!
                                             .insert(Cart(
-                                          id: index,
-                                          productId: index.toString(),
-                                          productName: productName[index],
-                                          initialPrice: productPrice[index],
-                                          productPrice: productPrice[index] *
-                                              quantities[index],
-                                          quantity: quantities[index],
-                                          unitTag: productUnit[index],
-                                          image: productImage[index],
-                                        ))
+                                                id: index,
+                                                productId: index.toString(),
+                                                productName: productName[index],
+                                                initialPrice:
+                                                    productPrice[index],
+                                                productPrice:
+                                                    productPrice[index],
+                                                quantity: quantities[index],
+                                                unitTag: productUnit[index],
+                                                image: productImage[index]))
                                             .then((value) {
-                                          print('Product is added to cart');
+                                          print("Product Added to cart");
                                           cart.addTotalPrice(double.parse(
-                                                  productPrice[index]
-                                                      .toString()) *
-                                              quantities[index]);
+                                              productPrice[index].toString()));
                                           cart.addCounter();
                                         }).onError((error, stackTrace) {
                                           print(error.toString());
@@ -324,55 +323,14 @@ class _ItemPageState extends State<ItemPage> {
                                           color: Colors.green,
                                           borderRadius:
                                               BorderRadius.circular(5)),
-                                      child: Icon(
+                                      child: Center(
+                                          child: Icon(
                                         Icons.add,
                                         color: Colors.white,
-                                      ),
+                                      )),
                                     ),
-                                  )
-                                else
-                                  Container(),
+                                  ),
                               ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          dbHelper!
-                              .insert(Cart(
-                            id: index,
-                            productId: index.toString(),
-                            productName: productName[index].toString(),
-                            initialPrice: productPrice[index],
-                            productPrice: productPrice[index],
-                            quantity: 1,
-                            unitTag: productUnit[index].toString(),
-                            image: productImage[index].toString(),
-                          ))
-                              .then((value) {
-                            print('Product is added to cart');
-                            cart.addTotalPrice(
-                                double.parse(productPrice[index].toString()));
-                            cart.addCounter();
-                          }).onError((error, stackTrace) {
-                            print(error.toString());
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.shopping_cart, color: Colors.white),
-                            SizedBox(width: 5),
-                            Text(
-                              'Cart',
-                              style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
