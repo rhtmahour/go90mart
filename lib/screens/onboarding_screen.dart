@@ -35,7 +35,7 @@ class OnboardingScreen extends StatelessWidget {
             image: Image.asset("assets/images/delivery.png"),
             title: "Quick & Fast Delivery",
             description:
-                "We offer speedy delivery of your groceries, bathroom supplies, baby care products, pet care items, stationary, etc within 30 minutes at your doorstep.",
+                "We offer speedy delivery of your groceries, baby care products, pet care items, stationary, etc within 9 to 90 minutes at your doorstep.",
             noOfScreen: 3,
             onNextPressed: changeScreen,
             currentScreenNo: 2,
