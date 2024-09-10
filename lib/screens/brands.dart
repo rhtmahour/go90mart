@@ -27,13 +27,13 @@ class BrandPage extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 100,
-                  width: 180,
+                  width: 150,
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -49,7 +49,7 @@ class BrandPage extends StatelessWidget {
                       ),
                       Container(
                         height: 50,
-                        width: 100,
+                        width: 80,
                         //color: Colors.green[50],
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -67,7 +67,7 @@ class BrandPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 100,
-                  width: 170,
+                  width: 150,
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -81,7 +81,7 @@ class BrandPage extends StatelessWidget {
                       ),
                       Container(
                         height: 50,
-                        width: 100,
+                        width: 80,
                         //color: Colors.green[50],
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -104,7 +104,7 @@ class BrandPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 100,
-                  width: 170,
+                  width: 150,
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -118,7 +118,7 @@ class BrandPage extends StatelessWidget {
                       ),
                       Container(
                         height: 50,
-                        width: 90,
+                        width: 70,
                         //color: Colors.green[50],
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -137,7 +137,7 @@ class BrandPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 100,
-                  width: 170,
+                  width: 150,
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -153,7 +153,7 @@ class BrandPage extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           height: 50,
-                          width: 100,
+                          width: 85,
                           //color: Colors.green[50],
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -177,7 +177,7 @@ class BrandPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 100,
-                  width: 170,
+                  width: 150,
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -191,7 +191,7 @@ class BrandPage extends StatelessWidget {
                       ),
                       Container(
                         height: 50,
-                        width: 80,
+                        width: 70,
                         //color: Colors.green[50],
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -210,7 +210,7 @@ class BrandPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 100,
-                  width: 170,
+                  width: 150,
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -226,7 +226,7 @@ class BrandPage extends StatelessWidget {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                           height: 50,
-                          width: 100,
+                          width: 80,
                           //color: Colors.green[50],
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),

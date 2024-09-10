@@ -5,12 +5,6 @@ import 'package:grocery_onboarding_app/Items/laysdetail.dart';
 import 'package:grocery_onboarding_app/Items/odonildetail.dart';
 import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
 import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
-//import 'package:grocery_onboarding_app/Items/dairymilkdetail.dart';
-//import 'package:grocery_onboarding_app/Items/gluconddetail.dart';
-//import 'package:grocery_onboarding_app/Items/laysdetail.dart';
-//import 'package:grocery_onboarding_app/Items/odonildetail.dart';
-//import 'package:grocery_onboarding_app/Items/pepsidetail.dart';
-//import 'package:grocery_onboarding_app/Items/redlabeldetail.dart';
 
 class ProductPage extends StatelessWidget {
   ProductPage({Key? key}) : super(key: key);
@@ -32,7 +26,7 @@ class ProductPage extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
-            const Padding(padding: EdgeInsets.only(right: 200)),
+            const Padding(padding: EdgeInsets.only(right: 160)),
             InkWell(
               onTap: () {
                 //Navigator.pushNamed(context, 'dairymilk');
@@ -72,8 +66,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
-                          height: 100,
-                          width: 100,
+                          height: 75,
+                          width: 75,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(21),
@@ -85,6 +79,9 @@ class ProductPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     const Text(
                       'Dairy Milk',
@@ -104,8 +101,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
-                          height: 100,
-                          width: 100,
+                          height: 75,
+                          width: 75,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(21),
@@ -117,6 +114,9 @@ class ProductPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     const Text(
                       'Lays',
@@ -136,8 +136,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
-                          height: 100,
-                          width: 100,
+                          height: 75,
+                          width: 75,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(21),
@@ -149,6 +149,9 @@ class ProductPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     const Text(
                       'pepsi',
@@ -168,8 +171,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
-                          height: 100,
-                          width: 100,
+                          height: 75,
+                          width: 75,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(21),
@@ -181,6 +184,9 @@ class ProductPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     const Text(
                       'Odonil',
@@ -200,8 +206,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
-                          height: 100,
-                          width: 100,
+                          height: 75,
+                          width: 75,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(21),
@@ -213,6 +219,9 @@ class ProductPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     const Text(
                       'Glucon-D',
@@ -234,8 +243,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                           margin: const EdgeInsets.only(right: 11),
-                          height: 100,
-                          width: 100,
+                          height: 75,
+                          width: 75,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(21),
@@ -247,6 +256,9 @@ class ProductPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           )),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     const Text(
                       'Red Label',
@@ -265,8 +277,8 @@ class ProductPage extends StatelessWidget {
                       },
                       child: Container(
                         margin: const EdgeInsets.only(right: 11),
-                        height: 100,
-                        width: 100,
+                        height: 75,
+                        width: 75,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(21),
