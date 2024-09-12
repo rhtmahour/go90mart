@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       initialRoute: '/',
       routes: {
         '/home': (context) => HomeScreen(),
-        '/second': (context) => const CategoriesPage(),
+        '/second': (context) => CategoriesPage(),
         '/third': (context) => ItemPage(),
         'CartPage': (context) => const CartPage(),
         /*'laysblue': (context) => laysbluePage(),

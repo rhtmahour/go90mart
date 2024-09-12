@@ -1,11 +1,6 @@
+import 'dart:convert'; // Needed for json.decode and base64Encode
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:grocery_onboarding_app/screens/cart_model.dart';
-import 'package:grocery_onboarding_app/screens/cart_provider.dart';
-import 'package:grocery_onboarding_app/screens/cartpage.dart';
-import 'package:grocery_onboarding_app/screens/db_helper.dart';
-import 'package:grocery_onboarding_app/screens/productdetailpage.dart';
-import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key});
@@ -15,96 +10,66 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
-  DBHelper? dbHelper = DBHelper();
+  List<dynamic> products = [];
+  int currentPage = 1; // To track the current page
 
-  List<String> productName = [
-    'LAYS',
-    'BIOTIQUE',
-    'BONN Cake',
-    'OREO',
-    'ARIEL MATIC',
-    'BAIDYANATH',
-    'BAYGON',
-    'COLGATE',
-    'RED',
-    'ODONIL'
-  ];
-  List<String> productUnit = [
-    'GM',
-    'ML',
-    'GM',
-    'GM',
-    'Ltr',
-    'GM',
-    'ML',
-    'GM',
-    'MG',
-    'ML'
-  ];
-  List<int> productPrice = [50, 299, 20, 70, 550, 112, 70, 195, 280, 250];
-  List<String> productImage = [
-    'assets/images/11.jpeg',
-    'assets/images/12.jpeg',
-    'assets/images/13.jpeg',
-    'assets/images/14.jpeg',
-    'assets/images/15.jpeg',
-    'assets/images/16.jpeg',
-    'assets/images/17.jpeg',
-    'assets/images/18.jpeg',
-    'assets/images/Redlabel.png',
-    'assets/images/odonil.webp',
-  ];
-  List<String> productDescription = [
-    'BURSTING FLAVOUR: The Lay’s India’s Magic Masala spice blend will excite your tastebuds;QUALITY POTATOES',
-    'This rich shampoo is a blend of pure soya bean protein, berberry and wild tumeric extracts to cleanse hair without disturbing its natural pH balance. Prevents color fade',
-    'Bonns latest addition to their hugely popular range of 100% Eggless cakes, Sweet Desire Assorted Packs',
-    'Cadbury OREO crème biscuits are made with cocoa, which defines their unique chocolatey flavour',
-    'Ariel Matic liquid detergent removes tough stains in just 1 wash and protects your colored clothes from fading',
-    'Our gulkand is prepared from high quality pink colored Indian Rose Petals prepared by traditional Ayurvedic method',
-    'Baygon Max Mosquito and Fly Killer spray is an easy way to ensure your home is free from mosquito-borne diseases like Dengue and Malaria',
-    'Colgate Visible White starts whitening your teeth in 1 week and offers you a real white smile when used as directed',
-    'The taste of Brooke Bond Red Label tea helps you spread warmth and cheer in your family.',
-    'Odonil Room Spray is formulated with a special fragrance that provides long-lasting freshness and a pleasant rose scent to your home or office space',
-  ];
+  // WooCommerce API credentials
+  final String consumerKey = 'ck_80f6659ac9df1f58a9b8a550a384bd36c8a36951';
+  final String consumerSecret = 'cs_2d6d405f0ab2924000ae7c8bdc7160440a8a71bb';
 
-  List<int> quantities = List<int>.generate(10, (int index) => 0);
-  List<bool> isAddButtonVisible = List<bool>.generate(10, (index) => true);
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts(); // Fetch first page by default
+  }
+
+  // Fetching products from WooCommerce API with pagination support
+  Future<void> fetchProducts() async {
+    final String apiUrl =
+        'https://go90mart.com/wp-json/wc/v3/products?per_page=20&page=$currentPage';
+
+    final String credentials =
+        base64Encode(utf8.encode('$consumerKey:$consumerSecret'));
+    final response = await http.get(
+      Uri.parse(apiUrl),
+      headers: {'Authorization': 'Basic $credentials'},
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        products = json.decode(response.body);
+      });
+    } else {
+      print('Failed to load products');
+    }
+  }
+
+  // Method to handle pagination logic
+  void _nextPage() {
+    setState(() {
+      currentPage++;
+      fetchProducts();
+    });
+  }
+
+  void _previousPage() {
+    if (currentPage > 1) {
+      setState(() {
+        currentPage--;
+        fetchProducts();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
-          'Store',
+          'Products',
           style: TextStyle(color: Colors.white),
         ),
-        centerTitle: true,
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => CartPage()));
-            },
-            child: Center(
-              child: badges.Badge(
-                badgeContent: Consumer<CartProvider>(
-                  builder: (context, value, child) {
-                    return Text(
-                      value.getCounter().toString(),
-                      style: TextStyle(color: Colors.white),
-                    );
-                  },
-                ),
-                child: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 20)
-        ],
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -113,236 +78,89 @@ class _ItemPageState extends State<ItemPage> {
                   colors: <Color>[Colors.red, Colors.green])),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: productName.length,
-          itemBuilder: (BuildContext context, int index) {
-            return InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductDetailPage(
-                      index: index,
-                      productName: productName[index],
-                      productUnit: productUnit[index],
-                      productPrice: productPrice[index],
-                      productImage: productImage[index],
-                      productDescription: productDescription[index],
-                    ),
-                  ),
-                );
-              },
-              child: Card(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Image.asset(
-                        productImage[index],
-                        height: 100,
-                        width: 100,
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              productName[index],
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "${productUnit[index]} Rs ${productPrice[index]}",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // Quantity control
-                                if (quantities[index] > 0)
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          cart.removerCounter();
-                                          cart.removeTotalPrice(double.parse(
-                                              productPrice[index].toString()));
-                                          setState(() {
-                                            quantities[index]--;
-                                            if (quantities[index] <= 0) {
-                                              quantities[index] = 0;
-                                              isAddButtonVisible[index] = true;
-                                              dbHelper!.delete(index);
-                                            } else {
-                                              dbHelper!
-                                                  .updateQuantity(Cart(
-                                                      id: index,
-                                                      productId:
-                                                          index.toString(),
-                                                      productName:
-                                                          productName[index],
-                                                      initialPrice:
-                                                          productPrice[index],
-                                                      productPrice:
-                                                          productPrice[index] *
-                                                              quantities[index],
-                                                      quantity:
-                                                          quantities[index],
-                                                      unitTag:
-                                                          productUnit[index],
-                                                      image:
-                                                          productImage[index]))
-                                                  .then((value) {
-                                                cart.removeTotalPrice(
-                                                    double.parse(
-                                                            productPrice[index]
-                                                                .toString()) *
-                                                        (quantities[index] +
-                                                            1));
-                                                cart.addTotalPrice(double.parse(
-                                                        productPrice[index]
-                                                            .toString()) *
-                                                    quantities[index]);
-                                              }).onError((error, stackTrace) {
-                                                print(error.toString());
-                                              });
-                                            }
-                                          });
-                                        },
-                                        child: Container(
-                                          height: 35,
-                                          width: 35,
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        quantities[index].toString(),
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      SizedBox(width: 10),
-                                      InkWell(
-                                        onTap: () {
-                                          cart.addCounter();
-                                          cart.addTotalPrice(double.parse(
-                                              productPrice[index].toString()));
-                                          setState(() {
-                                            quantities[index]++;
-                                            dbHelper!
-                                                .updateQuantity(Cart(
-                                                    id: index,
-                                                    productId: index.toString(),
-                                                    productName:
-                                                        productName[index],
-                                                    initialPrice:
-                                                        productPrice[index],
-                                                    productPrice:
-                                                        productPrice[index] *
-                                                            quantities[index],
-                                                    quantity: quantities[index],
-                                                    unitTag: productUnit[index],
-                                                    image: productImage[index]))
-                                                .then((value) {
-                                              cart.addTotalPrice(double.parse(
-                                                      productPrice[index]
-                                                          .toString()) *
-                                                  quantities[index]);
-                                              cart.removeTotalPrice(
-                                                  double.parse(
-                                                          productPrice[index]
-                                                              .toString()) *
-                                                      (quantities[index] - 1));
-                                            }).onError((error, stackTrace) {
-                                              print(error.toString());
-                                            });
-                                          });
-                                        },
-                                        child: Container(
-                                          height: 35,
-                                          width: 35,
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Icon(
-                                            Icons.add,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                else if (isAddButtonVisible[index])
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        quantities[index]++;
-                                        isAddButtonVisible[index] = false;
-                                        dbHelper!
-                                            .insert(Cart(
-                                                id: index,
-                                                productId: index.toString(),
-                                                productName: productName[index],
-                                                initialPrice:
-                                                    productPrice[index],
-                                                productPrice:
-                                                    productPrice[index],
-                                                quantity: quantities[index],
-                                                unitTag: productUnit[index],
-                                                image: productImage[index]))
-                                            .then((value) {
-                                          print("Product Added to cart");
-                                          cart.addTotalPrice(double.parse(
-                                              productPrice[index].toString()));
-                                          cart.addCounter();
-                                        }).onError((error, stackTrace) {
-                                          print(error.toString());
-                                        });
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 35,
-                                      width: 35,
-                                      decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Center(
-                                          child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      )),
+      body: products.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        int crossAxisCount = (constraints.maxWidth < 600)
+                            ? 2
+                            : 4; // Responsiveness
+
+                        return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                            childAspectRatio: 0.75,
+                          ),
+                          itemCount: products.length,
+                          itemBuilder: (context, index) {
+                            final product = products[index];
+                            return Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Image.network(
+                                      product['images'][0]['src'],
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
                                     ),
                                   ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      product['name'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '\Rs${product['price']}',
+                                      style: TextStyle(
+                                          color: Colors.green, fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
-      ),
+                // Pagination buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: currentPage > 1 ? _previousPage : null,
+                      child: Text('Previous'),
+                    ),
+                    TextButton(
+                      onPressed: _nextPage,
+                      child: Text('Next'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
     );
   }
 }

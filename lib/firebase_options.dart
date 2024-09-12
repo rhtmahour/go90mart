@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC60XSe3X1WhuuLiYXiypfWg15GXP9E4CA',
-    appId: '1:863893854022:web:c94e010c0e633b554e7747',
-    messagingSenderId: '863893854022',
-    projectId: 'go90mart-aa4a8',
-    authDomain: 'go90mart-aa4a8.firebaseapp.com',
-    storageBucket: 'go90mart-aa4a8.appspot.com',
-    measurementId: 'G-8SW4MMC6QP',
+    apiKey: 'AIzaSyA8Lp1KsF4UupZPs38Y-Rkhu-NWgF5Er7Y',
+    appId: '1:892410574641:web:0e20453de7454d5743a210',
+    messagingSenderId: '892410574641',
+    projectId: 'go90-6e83f',
+    authDomain: 'go90-6e83f.firebaseapp.com',
+    storageBucket: 'go90-6e83f.appspot.com',
+    measurementId: 'G-SFL4YJCZDE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBafbnrugRbFzUWHMuWc_AaELlgi5dEks8',
-    appId: '1:863893854022:android:60bf7aa48c042bc64e7747',
-    messagingSenderId: '863893854022',
-    projectId: 'go90mart-aa4a8',
-    storageBucket: 'go90mart-aa4a8.appspot.com',
+    apiKey: 'AIzaSyCVO9TFGCQ2IOROEPTmaJY1AlmQ8caA_Kk',
+    appId: '1:892410574641:android:f1dd47d822b1968e43a210',
+    messagingSenderId: '892410574641',
+    projectId: 'go90-6e83f',
+    storageBucket: 'go90-6e83f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAlxBKbhKvE8-S6XYB1T8nH8iHqNNlkGaM',
-    appId: '1:863893854022:ios:f5ee549f8f90b17d4e7747',
-    messagingSenderId: '863893854022',
-    projectId: 'go90mart-aa4a8',
-    storageBucket: 'go90mart-aa4a8.appspot.com',
+    apiKey: 'AIzaSyBNygsFyrSHGWSpz9UwFDER8urBJeh83hc',
+    appId: '1:892410574641:ios:79d2b91149b57a6843a210',
+    messagingSenderId: '892410574641',
+    projectId: 'go90-6e83f',
+    storageBucket: 'go90-6e83f.appspot.com',
     iosBundleId: 'com.example.groceryOnboardingApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAlxBKbhKvE8-S6XYB1T8nH8iHqNNlkGaM',
-    appId: '1:863893854022:ios:d4d5f7ad47d4daa84e7747',
-    messagingSenderId: '863893854022',
-    projectId: 'go90mart-aa4a8',
-    storageBucket: 'go90mart-aa4a8.appspot.com',
-    iosBundleId: 'com.example.groceryOnboardingApp.RunnerTests',
+    apiKey: 'AIzaSyBNygsFyrSHGWSpz9UwFDER8urBJeh83hc',
+    appId: '1:892410574641:ios:79d2b91149b57a6843a210',
+    messagingSenderId: '892410574641',
+    projectId: 'go90-6e83f',
+    storageBucket: 'go90-6e83f.appspot.com',
+    iosBundleId: 'com.example.groceryOnboardingApp',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyA8Lp1KsF4UupZPs38Y-Rkhu-NWgF5Er7Y',
+    appId: '1:892410574641:web:07a73d895b925b9343a210',
+    messagingSenderId: '892410574641',
+    projectId: 'go90-6e83f',
+    authDomain: 'go90-6e83f.firebaseapp.com',
+    storageBucket: 'go90-6e83f.appspot.com',
+    measurementId: 'G-9GZP978KVQ',
+  );
+
 }

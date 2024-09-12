@@ -77,73 +77,80 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
                   colors: <Color>[Colors.red, Colors.green])),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  hintText: 'Enter Name',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                initialValue: widget.email,
-                readOnly: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _mobileController,
-                decoration: InputDecoration(
-                  hintText: 'Phone Number',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your phone number';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _updateUserProfile();
-                  }
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.green), // Change button color
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white), // Change text color
-                  elevation: MaterialStateProperty.all<double>(
-                      8.0), // Change button elevation
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    EdgeInsets.symmetric(
-                        horizontal: 40.0,
-                        vertical: 12.0), // Change button padding
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Name',
+                    border: OutlineInputBorder(),
                   ),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          20.0), // Change button border radius
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  initialValue: widget.email,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _mobileController,
+                  decoration: InputDecoration(
+                    hintText: 'Phone Number',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your phone number';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _updateUserProfile();
+                    }
+                  },
+                  style: ButtonStyle(
+                    // ignore: deprecated_member_use
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.green), // Change button color
+                    // ignore: deprecated_member_use
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                        Colors.white), // Change text color
+                    // ignore: deprecated_member_use
+                    elevation: MaterialStateProperty.all<double>(
+                        8.0), // Change button elevation
+                    // ignore: deprecated_member_use
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      EdgeInsets.symmetric(
+                          horizontal: 40.0,
+                          vertical: 12.0), // Change button padding
+                    ),
+                    // ignore: deprecated_member_use
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Change button border radius
+                      ),
                     ),
                   ),
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
-                child: Text(
-                  'Submit',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

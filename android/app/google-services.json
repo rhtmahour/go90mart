@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "863893854022",
-    "project_id": "go90mart-aa4a8",
-    "storage_bucket": "go90mart-aa4a8.appspot.com"
+    "project_number": "892410574641",
+    "project_id": "go90-6e83f",
+    "storage_bucket": "go90-6e83f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:863893854022:android:60bf7aa48c042bc64e7747",
+        "mobilesdk_app_id": "1:892410574641:android:f1dd47d822b1968e43a210",
         "android_client_info": {
           "package_name": "com.example.grocery_onboarding_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBafbnrugRbFzUWHMuWc_AaELlgi5dEks8"
+          "current_key": "AIzaSyCVO9TFGCQ2IOROEPTmaJY1AlmQ8caA_Kk"
         }
       ],
       "services": {

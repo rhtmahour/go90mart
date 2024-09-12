@@ -118,7 +118,7 @@ class _PhoneUserEditProfileState extends State<PhoneUserEditProfile> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -126,17 +126,22 @@ class _PhoneUserEditProfileState extends State<PhoneUserEditProfile> {
                   }
                 },
                 style: ButtonStyle(
+                  // ignore: deprecated_member_use
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Colors.green), // Change button color
+                  // ignore: deprecated_member_use
                   foregroundColor: MaterialStateProperty.all<Color>(
                       Colors.white), // Change text color
+                  // ignore: deprecated_member_use
                   elevation: MaterialStateProperty.all<double>(
                       8.0), // Change button elevation
+                  // ignore: deprecated_member_use
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(
                         horizontal: 40.0,
                         vertical: 12.0), // Change button padding
                   ),
+                  // ignore: deprecated_member_use
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
