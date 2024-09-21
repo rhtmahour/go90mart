@@ -1,73 +1,63 @@
-import 'package:flutter/cupertino.dart';
-import 'package:grocery_onboarding_app/screens/cart_model.dart';
-import 'package:grocery_onboarding_app/screens/db_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
 class CartProvider with ChangeNotifier {
-  DBHelper db = DBHelper();
+  List<Map<String, dynamic>> _cartItems = [];
   int _counter = 0;
-  int get counter => _counter;
 
-  double _totalPrice = 0.0;
-  double get totalPrice => _totalPrice;
+  List<Map<String, dynamic>> get cartItems => _cartItems;
 
-  late Future<List<Cart>> _cart;
-  Future<List<Cart>> get cart => _cart;
+  void addItemToCart(Map<String, dynamic> product) {
+    // Check if the product already exists in the cart
+    bool productExists = false;
+    for (var item in _cartItems) {
+      if (item['id'] == product['id']) {
+        // If the product exists, just increase the quantity
+        item['quantity'] += 1;
+        productExists = true;
+        break;
+      }
+    }
 
-  Future<List<Cart>> getData() async {
-    _cart = db.getCartList();
-    return _cart;
-  }
+    // If the product doesn't exist, add it with quantity 1
+    if (!productExists) {
+      product['quantity'] = 1;
+      _cartItems.add(product);
+    }
 
-  void _setPrefItems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('cart_item', _counter);
-    prefs.setDouble('total_price', _totalPrice);
+    _counter++;
     notifyListeners();
   }
 
-  void _getPrefItems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _counter = prefs.getInt('cart_item') ?? 0;
-    _totalPrice = prefs.getDouble('total_price') ?? 0.0;
+  void removeItemFromCart(int index) {
+    _counter -= _cartItems[index]['quantity'] as int; // Cast quantity to int
+    _cartItems.removeAt(index);
     notifyListeners();
   }
 
-  void addTotalPrice(double productPrice) {
-    _totalPrice += productPrice;
-    _setPrefItems();
+  // Method to increase the quantity of an item
+  void increaseQuantity(int index) {
+    _cartItems[index]['quantity']++;
+    _counter++;
     notifyListeners();
   }
 
-  void removeTotalPrice(double productPrice) {
-    if (_totalPrice - productPrice >= 0) {
-      _totalPrice -= productPrice;
-      _setPrefItems();
+  // Method to decrease the quantity of an item
+  void decreaseQuantity(int index) {
+    if (_cartItems[index]['quantity'] > 1) {
+      _cartItems[index]['quantity']--;
+      _counter--;
       notifyListeners();
     }
   }
+
+  int getCounter() => _counter;
 
   double getTotalPrice() {
-    _getPrefItems();
-    return _totalPrice;
-  }
-
-  void addCounter() {
-    _counter++;
-    _setPrefItems();
-    notifyListeners();
-  }
-
-  void removerCounter() {
-    if (_counter > 0) {
-      _counter--;
-      _setPrefItems();
-      notifyListeners();
+    double total = 0.0;
+    for (var item in _cartItems) {
+      // Cast the result of multiplication to double explicitly
+      total += double.parse(item['price']) * item['quantity'] as double;
     }
-  }
-
-  int getCounter() {
-    _getPrefItems();
-    return _counter;
+    return total;
   }
 }

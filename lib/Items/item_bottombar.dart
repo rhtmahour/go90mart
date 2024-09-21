@@ -54,8 +54,8 @@ class _ItemBottomBarState extends State<ItemBottomBar> {
               .then((value) {
             print('Product is added to cart');
             // Assuming 'cart' is a provider or some state management instance
-            cart.addTotalPrice(widget.productPrice.toDouble());
-            cart.addCounter();
+            //cart.addTotalPrice(widget.productPrice.toDouble());
+            //cart.addCounter();
           }).onError((error, stackTrace) {
             print(error.toString());
           });

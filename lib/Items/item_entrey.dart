@@ -1,6 +1,11 @@
 import 'dart:convert'; // Needed for json.decode and base64Encode
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:grocery_onboarding_app/Items/itemdetail.dart';
+import 'package:grocery_onboarding_app/screens/cart_provider.dart';
+import 'package:grocery_onboarding_app/screens/cartpage.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart'; // Import CartProvider
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key});
@@ -63,6 +68,9 @@ class _ItemPageState extends State<ItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider =
+        Provider.of<CartProvider>(context); // Access CartProvider
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -70,6 +78,27 @@ class _ItemPageState extends State<ItemPage> {
           'Products',
           style: TextStyle(color: Colors.white),
         ),
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => CartPage()));
+            },
+            child: Center(
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartProvider.getCounter().toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 20)
+        ],
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -102,41 +131,75 @@ class _ItemPageState extends State<ItemPage> {
                           itemCount: products.length,
                           itemBuilder: (context, index) {
                             final product = products[index];
-                            return Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Image.network(
-                                      product['images'][0]['src'],
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Itemdetail(
+                                      product: product, // Pass product data
+                                      description: product[
+                                          'description'], // Pass description
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      product['name'],
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                );
+                              },
+                              child: Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Image.network(
+                                        product['images'][0]['src'],
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      '\Rs${product['price']}',
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 16),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        product['name'],
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '\Rs.${product['price']}',
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 20),
+                                          ),
+                                        ),
+                                        Spacer(flex: 5),
+                                        FloatingActionButton.small(
+                                          backgroundColor: Colors.green,
+                                          onPressed: () {
+                                            cartProvider.addItemToCart(product);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    '${product['name']} added to cart!'),
+                                              ),
+                                            );
+                                          },
+                                          child: Icon(Icons.add),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },

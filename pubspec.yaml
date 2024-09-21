@@ -50,6 +50,7 @@ dependencies:
   firebase_auth: ^4.16.0
   pinput: ^3.0.1
   http: ^1.2.2
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -164,6 +165,8 @@ flutter:
       - assets/images/slider13.webp
       - assets/images/slider14.webp
       - assets/images/slider15.webp
+      - assets/images/Animation - 1726912166683.json
+      - assets/images/Animation - 1726914725676.json
 
       
       

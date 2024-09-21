@@ -18,7 +18,6 @@ import 'package:grocery_onboarding_app/screens/orderpage.dart';
 import 'package:grocery_onboarding_app/screens/otp.dart';
 import 'package:grocery_onboarding_app/screens/phone.dart';
 import 'package:grocery_onboarding_app/screens/privacy_policy.dart';
-import 'package:grocery_onboarding_app/screens/product.dart';
 import 'package:grocery_onboarding_app/screens/send_feedback.dart';
 import 'package:grocery_onboarding_app/screens/settings.dart';
 import 'package:grocery_onboarding_app/screens/slider1.dart';
@@ -46,21 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         '/home': (context) => HomeScreen(),
         '/second': (context) => CategoriesPage(),
         '/third': (context) => ItemPage(),
-        'CartPage': (context) => const CartPage(),
-        /*'laysblue': (context) => laysbluePage(),
-        'dairymilk': (context) => dairymilk(),
-        'lays': (context) => lays(),
-        'pepsi': (context) => pepsi(),
-        'odonil': (context) => odonil(),
-        'glucond': (context) => glucond(),
-        'redlabel': (context) => redlabel(),
-        'bitotiqueshapoo': (context) => biotiqueshapoo(),
-        'bonncake': (context) => bonncakepage(),
-        'oreocookie': (context) => oreocookiepage(),
-        'arielmatic': (context) => arielmaticpage(),
-        'baidyanathgulkand': (context) => baidyanathgulkandpage(),
-        'baygonmax': (context) => baygonmaxpage(),
-        'colgatevisible': (context) => colgatevisiblepage(),*/
+        'CartPage': (context) => CartPage(),
         'orderPage': (context) => const OrderPage(),
         'myaccount': (context) => const MyAccountPage(),
         'phone': (context) => const MyPhone(),
@@ -420,7 +405,6 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                   ),
                   const Slider1(),
                   const Category(),
-                  ProductPage(),
                   const SliderPage(),
                   const BrandPage(),
                 ],
@@ -442,6 +426,7 @@ class PrettyFuzzyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQuery.of(context);
     return Container(
       width: 100,
       margin: const EdgeInsets.all(16.0),

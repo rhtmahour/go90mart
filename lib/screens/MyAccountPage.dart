@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_onboarding_app/screens/phone.dart';
-//import 'package:grocery_onboarding_app/screens/auth_page.dart';
-//import 'package:grocery_onboarding_app/screens/loginpage.dart';
-//import 'package:grocery_onboarding_app/screens/signup_page.dart';
+import 'package:lottie/lottie.dart'; // Ensure lottie is imported
 
 class MyAccountPage extends StatelessWidget {
   const MyAccountPage({super.key});
@@ -13,10 +11,12 @@ class MyAccountPage extends StatelessWidget {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Colors.red, Colors.green])),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[Colors.red, Colors.green],
+            ),
+          ),
         ),
         centerTitle: true,
         title: const Text(
@@ -56,11 +56,18 @@ class MyAccountPage extends StatelessWidget {
                   )
                 ],
               ),
+              // Corrected Lottie Animation
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/delivery.png"))),
+                child: Lottie.asset(
+                  'assets/images/Animation - 1726914725676.json',
+                  // Fallback if loading fails
+                  errorBuilder: (context, error, stackTrace) => Icon(
+                    Icons.error_outline,
+                    size: 60,
+                    color: Colors.red,
+                  ),
+                ),
               ),
               Column(
                 children: <Widget>[

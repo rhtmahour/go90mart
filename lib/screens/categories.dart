@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_onboarding_app/woo_commerce_service.dart';
+import 'package:grocery_onboarding_app/woo_commerce_service.dart'; // Import the service class
 
 class CategoriesPage extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   Future<List<dynamic>>? _categoriesFuture;
 
   final String defaultImageUrl =
-      'https://img.freepik.com/premium-vector/grocery-set-meat-fish-salad-bread-milk_169241-692.jpg?w=1060'; // Default image for all categories
+      'https://img.freepik.com/premium-vector/grocery-set-meat-fish-salad-bread-milk_169241-692.jpg?w=1060'; // Default image URL
 
   @override
   void initState() {
@@ -26,14 +26,16 @@ class _CategoriesPageState extends State<CategoriesPage> {
         centerTitle: true,
         title: Text(
           'Categories',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Colors.red, Colors.green])),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.red, Colors.green],
+            ),
+          ),
         ),
       ),
       body: FutureBuilder<List<dynamic>>(
@@ -45,79 +47,63 @@ class _CategoriesPageState extends State<CategoriesPage> {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             final categories = snapshot.data!;
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                int crossAxisCount = (constraints.maxWidth > 600) ? 3 : 2;
+            return ListView.builder(
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                final category = categories[index];
+                final imageUrl = defaultImageUrl; // Placeholder image for now
 
-                return GridView.builder(
-                  itemCount: categories.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount, // Responsive columns
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
-                    childAspectRatio: 0.8, // Adjust for better aspect ratio
-                  ),
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-
-                    // Use the default image URL for now
-                    final imageUrl = defaultImageUrl;
-
-                    return InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/third');
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        elevation: 6.0,
-                        shadowColor: Colors.green.withOpacity(0.6),
-                        margin: EdgeInsets.all(10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Ensure image is responsive and fits within the card
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15.0),
-                              child: Image.network(
-                                imageUrl,
-                                height: 100, // Adjust height for responsiveness
-                                width: double.infinity,
-                                fit: BoxFit.cover, // Make image responsive
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Icon(
-                                  Icons.image_not_supported,
-                                  size: 70,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.0),
-                            Text(
-                              category['name'],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              'Explore more',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[600],
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    elevation: 4.0,
+                    shadowColor: Colors.black26,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(15),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                          imageUrl,
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            Icons.image_not_supported,
+                            size: 60,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
-                    );
-                  },
+                      title: Text(
+                        category['name'],
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Explore more',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.green[400],
+                      ),
+                      onTap: () {
+                        // Navigate to a detailed category page
+                        Navigator.pushNamed(context, '/third',
+                            arguments: category);
+                      },
+                    ),
+                  ),
                 );
               },
             );
