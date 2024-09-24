@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_onboarding_app/screens/productlistpage.dart';
 import 'package:grocery_onboarding_app/woo_commerce_service.dart'; // Import the service class
 
 class CategoriesPage extends StatefulWidget {
@@ -47,65 +48,79 @@ class _CategoriesPageState extends State<CategoriesPage> {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             final categories = snapshot.data!;
-            return ListView.builder(
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                final imageUrl = defaultImageUrl; // Placeholder image for now
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                itemCount: categories.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                  childAspectRatio: 0.8,
+                ),
+                itemBuilder: (context, index) {
+                  var category = categories[index];
+                  var imageUrl = category['image'] != null
+                      ? category['image']['src']
+                      : defaultImageUrl;
 
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    elevation: 4.0,
-                    shadowColor: Colors.black26,
-                    child: ListTile(
-                      contentPadding: EdgeInsets.all(15),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.network(
-                          imageUrl,
-                          width: 70,
-                          height: 70,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => Icon(
-                            Icons.image_not_supported,
-                            size: 60,
-                            color: Colors.grey,
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate to the product list page with the category ID
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductListPage(
+                            categoryId: category['id'],
                           ),
                         ),
+                      );
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      title: Text(
-                        category['name'],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
+                      elevation: 5,
+                      shadowColor: Colors.grey.withOpacity(0.5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(15)),
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(15),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                category['name'],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      subtitle: Text(
-                        'Explore more',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.green[400],
-                      ),
-                      onTap: () {
-                        // Navigate to a detailed category page
-                        Navigator.pushNamed(context, '/third',
-                            arguments: category);
-                      },
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           } else {
             return Center(child: Text('No categories found'));
