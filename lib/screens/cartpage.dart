@@ -272,12 +272,14 @@ class CartPage extends StatelessWidget {
                 ),
                 elevation: 0,
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OrderPage()),
-                );
-              },
+              onPressed: cartProvider.cartItems.isEmpty
+                  ? null
+                  : () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrderPage()),
+                      );
+                    },
               child: Text(
                 "Pay Now",
                 style: TextStyle(
