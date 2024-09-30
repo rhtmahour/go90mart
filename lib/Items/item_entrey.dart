@@ -49,20 +49,25 @@ class _ItemPageState extends State<ItemPage> {
     }
   }
 
-  // Method to handle pagination logic
-  void _nextPage() {
+// Method to handle fetching the next page
+  void _nextPage() async {
     setState(() {
-      currentPage++;
-      fetchProducts();
+      products = []; // Clear the current products to show the loading spinner
     });
+    currentPage++; // Increment the page count
+
+    await fetchProducts(); // Fetch the products for the new page
   }
 
-  void _previousPage() {
+// Method to handle fetching the previous page
+  void _previousPage() async {
     if (currentPage > 1) {
       setState(() {
-        currentPage--;
-        fetchProducts();
+        products = []; // Clear the current products to show the loading spinner
       });
+      currentPage--; // Decrement the page count
+
+      await fetchProducts(); // Fetch the products for the new page
     }
   }
 
@@ -178,6 +183,7 @@ class _ItemPageState extends State<ItemPage> {
                                             '\Rs.${product['price']}',
                                             style: TextStyle(
                                                 color: Colors.green,
+                                                fontWeight: FontWeight.bold,
                                                 fontSize: 20),
                                           ),
                                         ),
@@ -208,17 +214,69 @@ class _ItemPageState extends State<ItemPage> {
                     ),
                   ),
                 ),
-                // Pagination buttons
+// Pagination buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
-                      onPressed: currentPage > 1 ? _previousPage : null,
-                      child: Text('Previous'),
+                    // Previous Button
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton.icon(
+                        onPressed: currentPage > 1
+                            ? _previousPage
+                            : null, // Disable on first page
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Previous',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          backgroundColor: currentPage > 1
+                              ? Colors.green
+                              : Colors.grey, // Disable color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
                     ),
-                    TextButton(
-                      onPressed: _nextPage,
-                      child: Text('Next'),
+
+                    // Page number indicator
+                    Text(
+                      'Page $currentPage',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+
+                    // Next Button
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton.icon(
+                        onPressed: _nextPage, // Always enable
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Next',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

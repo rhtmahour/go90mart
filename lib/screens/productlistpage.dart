@@ -148,7 +148,7 @@ class _ProductListPageState extends State<ProductListPage> {
                                       child: Text(
                                         'RS $price',
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.green,
                                         ),

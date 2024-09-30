@@ -139,7 +139,6 @@ class CartPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 16),
-
                 // Product Details
                 Expanded(
                   child: Column(
