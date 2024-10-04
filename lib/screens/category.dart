@@ -49,9 +49,6 @@ class Category extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            // First row of category labels
-            //_buildCategoryLabelsRow(['Fruits', 'Vegetables', 'Meat', 'Dairy']),
-            // Second row with new categories
             Wrap(
               spacing: 20,
               runSpacing: 10,
@@ -67,8 +64,6 @@ class Category extends StatelessWidget {
                     'Instant Food', imageSize),
               ],
             ),
-            // Second row of category labels
-            //_buildCategoryLabelsRow(['Cold Drinks', 'Bakery', 'Coffee', 'Instant Food']),
           ],
         );
       },

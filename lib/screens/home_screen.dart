@@ -18,6 +18,7 @@ import 'package:grocery_onboarding_app/screens/orderpage.dart';
 import 'package:grocery_onboarding_app/screens/otp.dart';
 import 'package:grocery_onboarding_app/screens/phone.dart';
 import 'package:grocery_onboarding_app/screens/privacy_policy.dart';
+import 'package:grocery_onboarding_app/screens/productsearchpage.dart';
 import 'package:grocery_onboarding_app/screens/send_feedback.dart';
 import 'package:grocery_onboarding_app/screens/settings.dart';
 import 'package:grocery_onboarding_app/screens/slider1.dart';
@@ -369,36 +370,66 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                     child: Container(
                       height: 50,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
                       child: Center(
                         child: TextField(
                           controller: _searchController,
                           decoration: InputDecoration(
-                            hintText: 'Search more than 10000+ products...',
-                            hintStyle: TextStyle(color: Colors.grey),
+                            filled:
+                                true, // Adds background color to the search bar
+                            fillColor: Colors
+                                .grey[200], // Set a light background color
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 15,
+                                horizontal: 20), // Add some padding
+                            labelText: 'Search for products...',
+                            labelStyle: TextStyle(
+                                color: Colors
+                                    .grey[700]), // Customize label text color
+                            hintText: 'Find the best deals...',
+                            hintStyle: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 14), // Set hint text style
+                            prefixIcon: Icon(Icons.search,
+                                color: Colors
+                                    .green), // Customize the search icon color
                             suffixIcon: IconButton(
-                              icon: Icon(Icons.clear),
-                              onPressed: () => _searchController.clear(),
-                            ),
-                            prefixIcon: IconButton(
-                              icon: Icon(Icons.search),
+                              icon: Icon(Icons.close,
+                                  color: Colors
+                                      .red), // Add a clear (close) button to reset search
                               onPressed: () {
-                                // Perform the search here
+                                _searchController
+                                    .clear(); // Clear the search text
+                                FocusScope.of(context)
+                                    .unfocus(); // Dismiss the keyboard
                               },
                             ),
-                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  30), // Add rounded corners
+                              borderSide: BorderSide(
+                                  color: Colors.green,
+                                  width: 2), // Border color when not focused
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(30), // Rounded corners
+                              borderSide: BorderSide(
+                                  color: Colors.blue,
+                                  width: 2), // Border color when focused
+                            ),
                           ),
+                          onSubmitted: (searchQuery) {
+                            searchQuery = _searchController.text.trim();
+                            if (searchQuery.isNotEmpty) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductSearchPage(
+                                      searchQuery: searchQuery),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ),
