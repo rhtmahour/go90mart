@@ -381,7 +381,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 15,
                                 horizontal: 20), // Add some padding
-                            labelText: 'Search for products...',
+                            labelText: 'Search products by name ...',
                             labelStyle: TextStyle(
                                 color: Colors
                                     .grey[700]), // Customize label text color
@@ -412,7 +412,7 @@ class _MyDrawerHomeState extends State<MyDrawerHome> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.circular(30), // Rounded corners
+                                  BorderRadius.circular(25), // Rounded corners
                               borderSide: BorderSide(
                                   color: Colors.blue,
                                   width: 2), // Border color when focused

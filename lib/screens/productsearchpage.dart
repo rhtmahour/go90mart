@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:grocery_onboarding_app/screens/cart_provider.dart';
+import 'package:grocery_onboarding_app/screens/cartpage.dart';
 import 'package:grocery_onboarding_app/screens/productdetailpage.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class ProductSearchPage extends StatefulWidget {
-  final String searchQuery; // Accept the search query
+  final String searchQuery;
 
   ProductSearchPage({required this.searchQuery});
 
@@ -22,7 +26,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
   @override
   void initState() {
     super.initState();
-    fetchProducts(widget.searchQuery); // Fetch products based on search query
+    fetchProducts(widget.searchQuery);
   }
 
   Future<void> fetchProducts(String query) async {
@@ -55,6 +59,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -62,92 +67,144 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => CartPage()));
+            },
+            child: Center(
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartProvider.getCounter().toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 20)
+        ],
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Colors.red, Colors.green])),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[Colors.red, Colors.green],
+            ),
+          ),
         ),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : products.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    itemCount: products.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      childAspectRatio: 0.75,
-                    ),
-                    itemBuilder: (context, index) {
-                      final product = products[index];
-                      return GestureDetector(
-                        onTap: () {
-                          // Handle product tap here, such as showing details
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductDetailPage(
-                                      product: product,
-                                    )),
+              ? LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Use different grid layout based on screen width
+                    int crossAxisCount = constraints.maxWidth < 600 ? 2 : 4;
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GridView.builder(
+                        itemCount: products.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 8.0,
+                          mainAxisSpacing: 8.0,
+                          childAspectRatio: 0.7,
+                        ),
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+                          return GestureDetector(
+                            onTap: () {
+                              // Handle product tap here
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailPage(
+                                    product: product,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              shadowColor: Colors.black.withOpacity(0.2),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(15.0)),
+                                    child: Image.network(
+                                      product['images'][0]['src'],
+                                      height: 150,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          product['name'],
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'RS ${product['price']}',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.green[700],
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            FloatingActionButton.small(
+                                              backgroundColor: Colors.green,
+                                              onPressed: () {
+                                                cartProvider
+                                                    .addItemToCart(product);
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        '${product['name']} added to cart!'),
+                                                  ),
+                                                );
+                                              },
+                                              child: Icon(Icons.add),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           );
                         },
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          shadowColor: Colors.black.withOpacity(0.2),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(15.0)),
-                                child: Image.network(
-                                  product['images'][0]['src'],
-                                  height: 150,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      product['name'],
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      'RS ${product['price']}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.green[700],
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 )
               : Center(
                   child: Text(
